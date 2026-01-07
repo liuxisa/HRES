@@ -1,0 +1,2399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《天圆地方：HRES》 游戏 Wiki</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #ffffff;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --highlight-color: #ffd700;
+            --text-dark: #ffffff;
+            --text-light: #b0b0b0;
+            --bg-light: #1a1a1a;
+            --bg-white: #000000;
+            --bg-card: #1a1a1a;
+            --border-color: #333333;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.5);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', '微软雅黑', 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+            color: var(--text-dark);
+            line-height: 1.7;
+            background-color: var(--bg-white);
+        }
+
+        strong {
+            font-weight: normal;
+            color: var(--highlight-color);
+        }
+
+        /* 导航栏 */
+        .navbar {
+            background: var(--bg-card);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* 顶部标签切换 */
+        .top-nav {
+            background: var(--bg-card);
+            box-shadow: var(--shadow);
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .back-home {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-home:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+            opacity: 0.9;
+        }
+
+        .tab-switcher {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-light);
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            background: var(--border-color);
+        }
+
+        .tab-btn.active {
+            background: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+
+        /* 容器 */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        /* 内容包装器 */
+        .content-wrapper {
+            display: flex;
+            gap: 2rem;
+        }
+
+        /* 侧边栏 */
+        .sidebar {
+            width: 280px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 2rem;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .sidebar h2 {
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-menu a:hover {
+            background: var(--bg-light);
+            color: var(--secondary-color);
+            transform: translateX(4px);
+        }
+
+        .nav-menu a.active {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        /* 主内容区 */
+        .main-content {
+            flex: 1;
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 3rem;
+            box-shadow: var(--shadow);
+            min-height: 600px;
+            border: 1px solid var(--border-color);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 3px solid var(--border-color);
+        }
+
+        .header h1 {
+            color: var(--text-dark);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        /* 系统Wiki样式 */
+        .section {
+            margin-bottom: 4rem;
+            scroll-margin-top: 100px;
+            display: none; /* 默认隐藏所有section */
+        }
+
+        .section.active {
+            display: block; /* 只显示激活的section */
+        }
+
+        .section h2 {
+            color: var(--text-dark);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .section h3 {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem;
+        }
+
+        .section h4 {
+            color: var(--text-dark);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 1.5rem 0 0.75rem;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        .section ul, .section ol {
+            margin: 1rem 0 1rem 2rem;
+            color: var(--text-dark);
+        }
+
+        .section li {
+            margin-bottom: 0.75rem;
+            line-height: 1.8;
+        }
+
+        .feature-box {
+            background: var(--bg-white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--secondary-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .feature-box h4 {
+            color: var(--secondary-color);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-card);
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        table th {
+            background: var(--secondary-color);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        table tr:last-child td {
+            border-bottom: none;
+        }
+
+        table tr:hover {
+            background: var(--bg-white);
+        }
+
+        /* 建筑表格样式 */
+        .building-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-card);
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .building-table th {
+            background: var(--secondary-color);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .building-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
+        }
+
+        .building-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .building-table tr:hover {
+            background: var(--bg-white);
+        }
+
+        .building-image {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            background: var(--bg-white);
+            border-radius: 8px;
+            padding: 4px;
+            border: 1px solid var(--border-color);
+        }
+
+        .building-name {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+        }
+
+        .building-info {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .building-materials {
+            color: var(--text-dark);
+        }
+
+        .building-materials ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+
+        .building-materials li {
+            margin-bottom: 0.25rem;
+        }
+
+        .tip-box {
+            background: var(--bg-white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            border-left: 5px solid var(--secondary-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .tip-box::before {
+            content: "💡 ";
+            font-size: 1.2em;
+        }
+
+        .warning-box {
+            background: var(--bg-white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            border-left: 5px solid var(--accent-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .warning-box::before {
+            content: "⚠️ ";
+            font-size: 1.2em;
+        }
+
+        code {
+            background: var(--bg-white);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: var(--accent-color);
+            font-size: 0.9em;
+        }
+
+        /* UGC Wiki 样式 */
+        .ugc-wiki {
+            display: none;
+        }
+
+        .ugc-wiki.active {
+            display: block;
+        }
+
+        /* 搜索栏 */
+        .search-bar {
+            margin-bottom: 2rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 2px solid var(--border-color);
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--bg-white);
+            color: var(--text-dark);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        /* 分类筛选 */
+        .category-filter {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+
+        .category-btn:hover {
+            background: var(--border-color);
+        }
+
+        .category-btn.active {
+            background: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+
+        /* 词条列表 */
+        .entry-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .entry-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .entry-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--secondary-color);
+        }
+
+        .entry-card h3 {
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .entry-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .entry-card .entry-meta {
+            color: var(--text-light);
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .entry-card .entry-type {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--secondary-color);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        /* 词条详情页 */
+        .entry-detail {
+            display: none;
+        }
+
+        .entry-detail.active {
+            display: block;
+        }
+
+        .entry-header {
+            border-bottom: 3px solid var(--border-color);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .entry-header h1 {
+            color: var(--text-dark);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .entry-header .entry-info {
+            color: var(--text-light);
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            font-size: 0.95rem;
+        }
+
+        .entry-content {
+            line-height: 1.8;
+            color: var(--text-dark);
+        }
+
+        .entry-content h2 {
+            color: var(--text-dark);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .entry-content h3 {
+            color: var(--secondary-color);
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 1.5rem 0 0.75rem;
+        }
+
+        .entry-actions {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--border-color);
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+            background: var(--secondary-color);
+        }
+
+        .btn-secondary {
+            background: var(--bg-light);
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border-color);
+        }
+
+        /* 编辑页面 */
+        .edit-form {
+            display: none;
+        }
+
+        .edit-form.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: var(--bg-white);
+            color: var(--text-dark);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .form-group textarea {
+            min-height: 300px;
+            resize: vertical;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* 空状态 */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-light);
+        }
+
+        .empty-state h2 {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .content-wrapper {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                position: relative;
+                top: 0;
+            }
+
+            .nav-menu {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .nav-menu li {
+                margin-bottom: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem 2rem;
+            }
+
+            .main-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .section h2 {
+                font-size: 1.5rem;
+            }
+
+            .entry-list {
+                grid-template-columns: 1fr;
+            }
+
+            .top-nav {
+                padding: 1rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.png" alt="HRES Logo">
+                <span>天圆地方 HRES</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="wiki.html">Wiki</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- 顶部导航栏 -->
+        <div class="top-nav">
+            <a href="index.html" class="back-home">← 返回主页</a>
+            <div class="tab-switcher">
+                <button class="tab-btn active" onclick="switchTab('system')">系统 Wiki</button>
+                <button class="tab-btn" onclick="switchTab('ugc')">世界 Wiki</button>
+            </div>
+        </div>
+
+        <div class="content-wrapper">
+            <!-- 系统Wiki内容 -->
+            <div id="system-wiki" class="main-content" style="display: block;">
+                <div style="display: flex; gap: 2rem;">
+                    <nav class="sidebar">
+                        <h2>📚 目录</h2>
+                        <ul class="nav-menu">
+                            <li><a href="#overview">游戏概览</a></li>
+                            <li><a href="#world-time">世界与时间</a></li>
+                            <li><a href="#resource">资源与采集</a></li>
+                            <li><a href="#industry">产业与生产</a></li>
+                            <li><a href="#buildings">建筑系统</a></li>
+                            <li><a href="#town">城镇系统</a></li>
+                            <li><a href="#country">国家系统</a></li>
+                            <li><a href="#territory">领土系统</a></li>
+                            <li><a href="#company">公司系统</a></li>
+                            <li><a href="#world-wiki">世界 Wiki</a></li>
+                        </ul>
+                    </nav>
+                    <div style="flex: 1;">
+                        <div class="header">
+                            <h1>《天圆地方：HRES》 系统 Wiki</h1>
+                            <p>游戏系统说明文档</p>
+                        </div>
+                        <div id="system-wiki-content">
+                            <!-- 游戏概览 -->
+                            <section id="overview" class="section active">
+                                <h2>🎮 游戏概览</h2>
+                                <p>
+                                    《天圆地方》（Heaven is Round, Earth is Square - HRES）是一款免费、开放的<strong>轻量级网络游戏</strong>，目标是让玩家们在一个持续运行的广阔虚拟世界中探索、生存、协作，
+                                    自发地形成经济体系和社会结构，共建<strong>虚拟文明</strong>。
+                                </p>
+                                <div class="feature-box">
+                                    <h4>核心特色</h4>
+                                    <ul>
+                                        <li>世界地图广大而连续，采用单一服务器架构，没有副本，所有玩家共享同一个持续运行的世界</li>
+                                        <li>真实的经济模拟，无系统干预：玩家之间的交易、产业运作完全由市场机制决定，系统不进行价格调控或资源分配</li>
+                                        <li>城镇、国家等社会组织不是系统生成的，而是由真实玩家自由创建和运作</li>
+                                        <li>世界运行的规则最小化：系统只提供最小的规则框架，具体的制度与秩序由玩家自发构建</li>
+                                    </ul>
+                                </div>
+                            </section>
+
+                            <!-- 世界与时间 -->
+                            <section id="world-time" class="section">
+                                <h2>🌍 世界与时间</h2>
+                                
+                                <h3>世界</h3>
+                                <p>
+                                    HRES世界是一个<strong>连续的、广大的</strong>平面虚拟世界。
+                                    世界本身是一个复杂的生态系统，融合了地形、资源、玩家、建筑、产业、城镇、国家等诸多要素。
+                                    在这里，玩家可以自由探索、建设、协作，见证从个人生活到集体文明的完整演化过程。
+                                </p>
+
+                                <h3>地貌与地形</h3>
+                                <p>
+                                    世界拥有<strong>多样的地貌</strong>：<strong>海洋</strong>、<strong>大陆</strong>、<strong>岛屿</strong>、<strong>湖泊</strong>、<strong>河流</strong>、<strong>山脉</strong>等，
+                                    构成了丰富的地理环境。
+                                </p>
+                                <p>
+                                    在陆地之上，分布着<strong>多种地形</strong>：<strong>草地</strong>、<strong>沙地</strong>、<strong>雪地</strong>、<strong>泥地</strong>、<strong>岩地</strong>、<strong>湿地</strong>等。
+                                    每种地形都有其独特的特性，影响着玩家的移动速度、资源分布和可开发性。
+                                    玩家需要根据不同的地形特点，制定相应的探索策略和建设规划。
+                                </p>
+
+                                <h3>方域</h3>
+                                <p>
+                                    游戏世界被划分为上万个<strong>方域（chunk）</strong>，每个方域的面积为<strong>4096平方米</strong>。
+                                </p>
+                                <p>
+                                    方域概念源自中国古代"天圆地方"的宇宙观，其中"方域"代表大地上的基本区域单位，象征着"地方"的概念。
+                                    每个方域都是领土管理、建筑建造和资源分布的基本单位。
+                                </p>
+
+                                <h3>时间系统</h3>
+                                <p>HRES世界采用独特的历法系统：</p>
+                                <ul>
+                                    <li><strong>时间流速</strong>：游戏中1天 = 现实中12小时（游戏时间流速为现实的2倍）</li>
+                                    <li><strong>历法结构</strong>：
+                                        <ul>
+                                            <li>1年 = 4个月（春月、夏月、秋月、冬月）</li>
+                                            <li>1个月 = 30天</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>时间格式</strong>：显示为"天圆纪元 X年-X月-X日 XX:XX"</li>
+                                </ul>
+                                <div class="tip-box">
+                                    游戏起始时间：现实时间 2026年1月1日 00:00（北京时间）对应天圆纪元 第1年春月第1天 00:00
+                                </div>
+
+                                <h3>日常循环</h3>
+                                <p>游戏以游戏历法里的<strong>天</strong>作为基本单位来实现结算。每天结束时，系统会进行各种状态的更新和重置：</p>
+                                <ul>
+                                    <li><strong>精力恢复</strong>：进入房屋休息的玩家在每天结束时精力会全部恢复</li>
+                                    <li><strong>工作次数重置</strong>：产业建筑的工作次数在每天结束时重置，玩家可以重新投入精力工作</li>
+                                    <li><strong>其他日常结算</strong>：系统会在每天结束时统一处理各种需要按天结算的游戏机制</li>
+                                </ul>
+                                <div class="tip-box">
+                                    日常循环确保了游戏节奏的稳定性，玩家可以合理安排每天的活动，并在新的一天开始时获得新的机会。
+                                </div>
+                            </section>
+
+                            <!-- 资源与采集系统 -->
+                            <section id="resource" class="section">
+                                <h2>⛏️ 资源与采集系统</h2>
+                                
+                                <h3>资源分布</h3>
+                                <p>世界中分布以下自然资源：</p>
+                                <ul>
+                                    <li>树木</li>
+                                    <li>石头</li>
+                                    <li>铁矿</li>
+                                    <li>铜矿</li>
+                                </ul>
+
+                                <h3>资源信息表</h3>
+
+                                <table class="building-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 100px;">资源图片</th>
+                                            <th style="width: 150px;">资源名称</th>
+                                            <th style="width: 120px;">采集物品</th>
+                                            <th style="width: 100px;">采集次数</th>
+                                            <th style="width: 100px;">基础精力消耗</th>
+                                            <th style="width: 120px;">所需技能</th>
+                                            <th style="width: 150px;">兼容工具</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- 松树 -->
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Resources/trees/pine_tree_large_1.png" alt="松树（大）" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">松树（大）</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">木材</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">8次</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">75</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">伐木</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">石斧、铁斧</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Resources/trees/pine_tree_medium_1.png" alt="松树（中）" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">松树（中）</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">木材</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">5次</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">60</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">伐木</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">石斧、铁斧</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Resources/trees/pine_tree_small_1.png" alt="松树（小）" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">松树（小）</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">木材</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">3次</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">40</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">伐木</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">石斧、铁斧</div>
+                                            </td>
+                                        </tr>
+                                        <!-- 桦树 -->
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Resources/trees/birch_tree_large_1.png" alt="桦树（大）" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">桦树（大）</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">木材</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">8次</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">75</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">伐木</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">石斧、铁斧</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Resources/trees/birch_tree_medium_1.png" alt="桦树（中）" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">桦树（中）</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">木材</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">5次</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">60</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">伐木</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">石斧、铁斧</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Resources/trees/birch_tree_small_1.png" alt="桦树（小）" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">桦树（小）</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">木材</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">3次</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">40</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">伐木</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">石斧、铁斧</div>
+                                            </td>
+                                        </tr>
+                                        <!-- 石头 -->
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Resources/ores/stone_1.png" alt="石头" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">石头</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">石头</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">8次</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">50</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">石料采集</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">石镐、铁镐</div>
+                                            </td>
+                                        </tr>
+                                        <!-- 铁矿 -->
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Resources/ores/iron_ore_1.png" alt="铁矿" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">铁矿</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">铁矿石</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">12次</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">100</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">铁矿采集</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">石镐、铁镐</div>
+                                            </td>
+                                        </tr>
+                                        <!-- 铜矿 -->
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Resources/ores/copper_ore_1.png" alt="铜矿" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">铜矿</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">铜矿石</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">12次</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">100</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">铜矿采集</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">石镐、铁镐</div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <h3>资源生成规则</h3>
+                                <ul>
+                                    <li>资源分布受宏观地貌和微观地形影响，呈现随机但不均匀格局</li>
+                                    <li>资源会定期再生：树木资源再生周期较短，矿石资源再生周期较长</li>
+                                </ul>
+
+                                <h3>采集机制</h3>
+                                <ul>
+                                    <li>玩家靠近资源，鼠标悬停时资源高亮，点击后进入采集界面</li>
+                                    <li>玩家以个人身份直接消耗精力进行采集，获得对应产出</li>
+                                    <li>城镇领土内的资源当地居民可以采集，非城镇居民资源采集权由城镇政策决定</li>
+                                </ul>
+                            </section>
+
+                            <!-- 产业与生产系统 -->
+                            <section id="industry" class="section">
+                                <h2>🏭 产业与生产</h2>
+                                
+                                <h3>产业分类</h3>
+                                <p>产业分为两类：</p>
+                                
+                                <div class="feature-box">
+                                    <h4>生产型产业</h4>
+                                    <p>消耗原料 → 玩家劳动 → 产出产品</p>
+                                    <p><strong>示例</strong>：铁匠铺消耗矿石 → 制造工具</p>
+                                </div>
+
+                                <div class="feature-box">
+                                    <h4>服务型产业</h4>
+                                    <p>提供服务 → 获得收益</p>
+                                    <p><strong>示例</strong>：旅馆、店铺</p>
+                                </div>
+
+                                <h3>工作机制</h3>
+                                <ul>
+                                    <li>玩家可以投入精力在产业中工作，立即获得报酬</li>
+                                    <li>产出进入产业仓库</li>
+                                    <li>产业规模决定了每日可工作次数，经营者可限制玩家单次劳动的最低精力消耗</li>
+                                </ul>
+
+                                <h3>建造限制</h3>
+                                <p>只有城镇领土内的方域（chunk）才能建造产业建筑。</p>
+                            </section>
+
+                            <!-- 建筑系统 -->
+                            <section id="buildings" class="section">
+                                <h2>🏗️ 建筑系统</h2>
+                                <p>
+                                    游戏中的建筑分为三大类别：<strong>产业建筑</strong>、<strong>公共建筑</strong>和<strong>基础设施</strong>。
+                                </p>
+
+                                <!-- 产业建筑 -->
+                                <h3>🏭 产业建筑</h3>
+                                <p>产业建筑（Estate Buildings）包括生产型和服务型建筑，是游戏经济系统的核心。生产型建筑可提供就业机会，玩家可以投入精力工作获得报酬。</p>
+                                
+                                <table class="building-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 100px;">建筑图片</th>
+                                            <th style="width: 150px;">建筑名称</th>
+                                            <th>功能说明</th>
+                                            <th style="width: 200px;">所需材料</th>
+                                            <th style="width: 200px;">产能/产出</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- 1. 玉米农场 -->
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Buildings/Farmhouse/farmhouse_corn.png" alt="农场" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">玉米农场</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    生产型建筑。种植和收获玉米，提供食物。提供就业机会。
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-materials">
+                                                    <ul>
+                                                        <li>木材：70</li>
+                                                        <li>石头：30</li>
+                                                        <li>工作量：1500</li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    原料：无<br>
+                                                    产出：玉米<br>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!-- 2. 石匠铺 -->
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Buildings/Stonemason/stonemason.png" alt="石匠铺" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">石匠铺</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    生产型建筑。生产石制工具（石斧、石镐、石锤）。提供就业机会。
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-materials">
+                                                    <ul>
+                                                        <li>木材：60</li>
+                                                        <li>石头：40</li>
+                                                        <li>工作量：1800</li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    原料：木材、石头<br>
+                                                    产出：石斧、石镐、石锤
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!-- 3. 冶炼坊 -->
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Buildings/Smeltery/smeltery.png" alt="冶炼坊" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">冶炼坊</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    生产型建筑。将铁矿石和铜矿石冶炼成铁锭和铜锭。提供就业机会。
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-materials">
+                                                    <ul>
+                                                        <li>木材：80</li>
+                                                        <li>石头：100</li>
+                                                        <li>工作量：2500</li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    原料：铁矿石、铜矿石<br>
+                                                    产出：铁锭、铜锭
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!-- 4. 铁匠铺 -->
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Buildings/Blacksmith/blacksmith.png" alt="铁匠铺" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">铁匠铺</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    生产型建筑。生产铁制工具（铁斧、铁锤、铁镐）等金属制品。提供就业机会。
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-materials">
+                                                    <ul>
+                                                        <li>木材：100</li>
+                                                        <li>石头：50</li>
+                                                        <li>工作量：2000</li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    原料：木材、铁锭<br>
+                                                    产出：铁斧、铁锤、铁镐
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!-- 5. 铸币厂 -->
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Buildings/Mint/mint.png" alt="铸币厂" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">铸币厂</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    生产型建筑。铸造铜币的工厂。提供就业机会。
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-materials">
+                                                    <ul>
+                                                        <li>木材：50</li>
+                                                        <li>石头：80</li>
+                                                        <li>工作量：3000</li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    原料：木材、铜锭<br>
+                                                    产出：铜币
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!-- 6. 房屋 -->
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Buildings/House/house_small.png" alt="房屋" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">房屋</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    服务型建筑。供居民居住的建筑，可以用于自住或出租。有多种大小（平房、尖顶小屋、复式楼房）。不可就业。
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-materials">
+                                                    <ul>
+                                                        <li>木材：40-100</li>
+                                                        <li>石头：20-80</li>
+                                                        <li>工作量：800-2000</li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    功能：居住
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!-- 7. 店铺 -->
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Buildings/Shop/shop.png" alt="店铺" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">店铺</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    服务型建筑。商业建筑，用于店主小规模出售物品。不可就业。
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-materials">
+                                                    <ul>
+                                                        <li>木材：120</li>
+                                                        <li>石头：60</li>
+                                                        <li>工作量：2500</li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    功能：小规模物品出售
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!-- 8. 仓库 -->
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Buildings/Storehouse/storehouse.png" alt="仓库" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">仓库</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    服务型建筑。存储物品和资源，提供额外的存储空间。不可就业。
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-materials">
+                                                    <ul>
+                                                        <li>木材：100</li>
+                                                        <li>石头：80</li>
+                                                        <li>工作量：2000</li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    功能：物品存储
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <!-- 公共建筑 -->
+                                <h3>🏛️ 公共建筑</h3>
+                                <p>公共建筑（Public Buildings）为城镇提供公共服务和管理功能，是城镇运行的基础设施。</p>
+
+                                <table class="building-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 100px;">建筑图片</th>
+                                            <th style="width: 150px;">建筑名称</th>
+                                            <th>功能说明</th>
+                                            <th style="width: 200px;">所需材料</th>
+                                            <th style="width: 200px;">功能效果</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Buildings/TownCenter/town_center.png" alt="乡镇中心" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">乡镇中心</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    镇级城镇的核心建筑，用于管理城镇事务、设置政策、任命职务。自动宣称周围9个方域的领土。人口达到50后可升级为市政厅。
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-materials">
+                                                    <ul>
+                                                        <li>木材：300</li>
+                                                        <li>石头：200</li>
+                                                        <li>工作量：5000</li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    功能：城镇管理、宣称领土
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Buildings/TownCenter/city_center.png" alt="市政厅" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">市政厅</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    城级城镇的核心建筑，由乡镇中心升级而来。提供更高级的城镇管理功能，用于管理城市事务、设置政策、任命职务。自动宣称周围9个方域的领土。无法直接建造，必须通过乡镇中心升级获得。
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-materials">
+                                                    <ul>
+                                                        <li>升级条件：人口≥50</li>
+                                                        <li>升级方式：从乡镇中心升级</li>
+                                                        <li>无法直接建造</li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    功能：城市管理、宣称领土
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Buildings/Shop/shop.png" alt="市场" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">市场</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    城镇公共建筑，用于居民大规模买卖物品。提供交易场所，是经济活动的中心。
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-materials">
+                                                    <ul>
+                                                        <li>木材：120</li>
+                                                        <li>石头：60</li>
+                                                        <li>工作量：2500</li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    功能：提供大规模交易平台
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Buildings/Outpost/outpost.png" alt="哨站" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">哨站</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    扩张城镇领土的据点。需要定期维护。
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-materials">
+                                                    <ul>
+                                                        <li>木材：60</li>
+                                                        <li>石头：30</li>
+                                                        <li>工作量：1500</li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    功能：宣称领土
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <!-- 基础设施 -->
+                                <h3>🛤️ 基础设施</h3>
+                                <p>基础设施（Infrastructure）包括道路、桥梁等交通设施，目前尚未开放，敬请期待。</p>
+
+                                <table class="building-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 100px;">建筑图片</th>
+                                            <th style="width: 150px;">建筑名称</th>
+                                            <th>功能说明</th>
+                                            <th style="width: 200px;">所需材料</th>
+                                            <th style="width: 200px;">功能效果</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Buildings/placeholder.png" alt="土路" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">土路</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    基础道路设施，尚未开放，敬请期待。
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-materials">
+                                                    <ul>
+                                                        <li>待定</li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    功能：提高移动速度
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Buildings/placeholder.png" alt="石板路" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">石板路</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    高级道路设施，尚未开放，敬请期待。
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-materials">
+                                                    <ul>
+                                                        <li>待定</li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    功能：提高移动速度
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Buildings/placeholder.png" alt="木桥" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">木桥</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    基础桥梁设施，用于跨越水域或障碍，尚未开放，敬请期待。
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-materials">
+                                                    <ul>
+                                                        <li>待定</li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    功能：交通设施
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Buildings/placeholder.png" alt="石桥" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">石桥</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    高级桥梁设施，用于跨越水域或障碍，尚未开放，敬请期待。
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-materials">
+                                                    <ul>
+                                                        <li>待定</li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">
+                                                    功能：交通设施
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="tip-box">
+                                    <strong>开发中</strong>：基础设施系统正在开发中，包括道路（土路、石板路）和桥梁（木桥、石桥）等功能，将在后续版本中开放。
+                                </div>
+
+                                <div class="tip-box">
+                                    <strong>建造说明</strong>：所有建筑都需要在城镇领土内建造。非城镇居民在城镇领土内建造需要支付额外费用（由城镇政策决定）。建筑建造后需要定期维护，维护失败会导致建筑损坏。
+                                </div>
+                            </section>
+
+                            <!-- 城镇系统 -->
+                            <section id="town" class="section">
+                                <h2>🏘️ 城镇系统</h2>
+                                
+                                <h3>城镇等级</h3>
+                                <p>游戏中的城镇分为两个等级：</p>
+                                
+                                <div class="feature-box">
+                                    <h4>
+                                        <img src="assets/Buildings/TownCenter/town_center.png" alt="乡镇中心" style="width: 40px; height: 40px; vertical-align: middle; margin-right: 10px; object-fit: contain;">
+                                        镇（Town）
+                                    </h4>
+                                    <ul>
+                                        <li>规模较小的城镇，拥有<strong>乡镇中心</strong></li>
+                                        <li>可选的城镇名称后缀：<strong>镇、乡、村、屯、寨、营</strong></li>
+                                    </ul>
+                                </div>
+
+                                <div class="feature-box">
+                                    <h4>
+                                        <img src="assets/Buildings/TownCenter/city_center.png" alt="市政厅" style="width: 40px; height: 40px; vertical-align: middle; margin-right: 10px; object-fit: contain;">
+                                        城（City）
+                                    </h4>
+                                    <ul>
+                                        <li>人口达到50后，可将<strong>乡镇中心</strong>升级为<strong>市政厅</strong>，镇自动升级为城</li>
+                                        <li>可选的城市名称后缀：<strong>城、市、府、州、堡、格勒</strong></li>
+                                    </ul>
+                                </div>
+
+                                <div class="tip-box">
+                                    后缀只是名称不同，数值和操作上没有任何区别。玩家可以根据地理位置和文化特色自由搭配。
+                                </div>
+
+                                <h3>城镇管理</h3>
+                                <ul>
+                                    <li>城镇领主可为居民授予自定义称号与职务（如"街道护卫""首席建筑师"）。</li>
+                                    <li>城镇是玩家聚居、公司运营与产业活动的核心单位，城市居民的经济活动要向城镇纳税。</li>
+                                    <li>城镇可开放面向外来人口的移民政策。</li>
+                                </ul>
+
+                            </section>
+
+                            <!-- 国家系统 -->
+                            <section id="country" class="section">
+                                <h2>👑 国家系统</h2>
+                                
+                                
+                                <h3>政体制度</h3>
+
+                                <div class="feature-box">
+                                    <h4>👑 君主制（Monarchy）</h4>
+                                    <ul>
+                                        <li>元首由初代建国者担任，通过<strong>禅让</strong>于元首个人指定的接班人进行权力更替</li>
+                                        <li>元首无任期限制</li>
+                                        <li>元首拥有一切决策权</li>
+                                    </ul>
+                                </div>
+
+                                <div class="feature-box">
+                                    <h4>🏛 共和制（Republic）（暂未开放）</h4>
+                                    <ul>
+                                        <li>公民定期选举议员，议员投票选出国家元首</li>
+                                        <li>元首任期有限（游戏中1或2个月）</li>
+                                        <li>元首可执行普通决策，国家重大决策需议会通过</li>
+                                        <li><strong>建立要求</strong>：至少拥有1座城</li>
+                                    </ul>
+                                </div>
+
+                                <div class="warning-box">
+                                    政体本身不提供数值加成，只影响治理逻辑与交互方式。
+                                </div>
+
+                                <h3>国体名称</h3>
+                                <p>城镇数量、城镇等级和人口规模决定国家可选用的<strong>国体名称</strong>与<strong>国家元首称号</strong>。国体名称可以通过国家改革变更。国体名称将作为国家名称的后缀出现，如金帐<strong>汗国</strong>、威尼斯<strong>共和国</strong>等。</p>
+
+                                <h4>君主制国体</h4>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>国体名称</th>
+                                            <th>城市要求</th>
+                                            <th>人口要求</th>
+                                            <th>统治者称号</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>部落</td>
+                                            <td>1镇</td>
+                                            <td>1</td>
+                                            <td>首领 / 酋长</td>
+                                        </tr>
+                                        <tr>
+                                            <td>山寨</td>
+                                            <td>1镇</td>
+                                            <td>1</td>
+                                            <td>首领 / 寨主</td>
+                                        </tr>
+                                        <tr>
+                                            <td>部落联盟</td>
+                                            <td>2镇</td>
+                                            <td>50</td>
+                                            <td>首领 / 大酋长 / 盟主</td>
+                                        </tr>
+                                        <tr>
+                                            <td>汗国</td>
+                                            <td>3镇</td>
+                                            <td>100</td>
+                                            <td>可汗 / 大汗</td>
+                                        </tr>
+                                        <tr>
+                                            <td>公国/国</td>
+                                            <td>1城</td>
+                                            <td>50</td>
+                                            <td>国君 / 公爵</td>
+                                        </tr>
+                                        <tr>
+                                            <td>王国</td>
+                                            <td>3城</td>
+                                            <td>150</td>
+                                            <td>国君 / 国王</td>
+                                        </tr>
+                                        <tr>
+                                            <td>帝国</td>
+                                            <td>5城</td>
+                                            <td>250</td>
+                                            <td>皇帝 / 天子</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <h4>共和制国体</h4>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>国体名称</th>
+                                            <th>城市要求</th>
+                                            <th>人口要求</th>
+                                            <th>统治者称号</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>城邦</td>
+                                            <td>1城</td>
+                                            <td>1</td>
+                                            <td>执政官</td>
+                                        </tr>
+                                        <tr>
+                                            <td>共和国</td>
+                                            <td>2城</td>
+                                            <td>50</td>
+                                            <td>总统 / 主席</td>
+                                        </tr>
+                                        <tr>
+                                            <td>联邦</td>
+                                            <td>5城</td>
+                                            <td>150</td>
+                                            <td>元首 / 总统 / 主席</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="tip-box">
+                                    同一政体内的不同风格<strong>没有任何数值加成</strong>，只是称呼不同。玩家可以选择不升级，继续保持当前风格。
+                                </div>
+
+                                <h3>建国流程</h3>
+                                <p>玩家在<strong>无主之地</strong>建立第一个<strong>乡镇中心</strong>时，系统自动成立一个<strong>君主制国家</strong>。</p>
+                                <p>此时城镇等级为<strong>镇</strong>，玩家可以从以下两种初始国体风格中选择：</p>
+                                
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>国体风格</th>
+                                            <th>最低要求</th>
+                                            <th>统治者称号</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>部落</td>
+                                            <td>1镇 + 1人</td>
+                                            <td>首领 / 酋长</td>
+                                        </tr>
+                                        <tr>
+                                            <td>山寨</td>
+                                            <td>1镇 + 1人</td>
+                                            <td>首领 / 寨主</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <h3>政体改革</h3>
+                                <p>当国家发展到一定规模后，玩家可以选择<strong>改变政体制度</strong>：</p>
+                                <ul>
+                                    <li><strong>从君主制改革到共和制</strong>：至少拥有1座城，由国家元首发起改革（暂未开放）。</li>
+                                    <li><strong>从共和制改革到君主制</strong>：内乱或政变事件触发，或议会通过政体改变决议（暂未开放）。</li>
+                                </ul>
+                            </section>
+
+                            <!-- 领土系统 -->
+                            <section id="territory" class="section">
+                                <h2>🗺️ 领土系统</h2>
+                                
+                                <h3>方域概念</h3>
+                                <p>
+                                    在HRES世界的内测版本中，游戏世界被划分为<strong>200 × 100 个方域（chunk）</strong>，每个方域的面积为4096平方米。
+                                    方域概念源自中国古代"天圆地方"的宇宙观，其中"方域"代表大地上的基本区域单位，象征着"地方"的概念。
+                                    每个方域都是领土管理、建筑建造和资源分布的基本单位。
+                                </p>
+
+                                <h3>城镇基础领土</h3>
+                                <ul>
+                                    <li>城镇中心自动宣称周围1环（9个方域）</li>
+                                    <li>无需额外建筑，这是城镇的基础领土</li>
+                                    <li>城镇中心无法建造在其它城镇领土周边，否则会领土冲突</li>
+                                </ul>
+
+                                <h3>扩张领土规则</h3>
+                                <ul>
+                                    <li>通过扩张建筑宣称相邻领土</li>
+                                    <li>扩张建筑有"影响范围"，可以宣称多个方域</li>
+                                    <li>影响范围可以重叠，提高效率</li>
+                                    <li>新扩张的领土必须与现有领土相邻</li>
+                                </ul>
+
+                                <h3>扩张建筑</h3>
+                                
+                                <h4>城镇中心 (Town Center)</h4>
+                                <ul>
+                                    <li><strong>功能</strong>：城镇核心建筑，基础领土扩张</li>
+                                    <li><strong>扩张范围</strong>：所在方域以及相邻8个方向的方域（共9个）</li>
+                                </ul>
+
+                                <h4>哨所 (Outpost)</h4>
+                                <ul>
+                                    <li><strong>功能</strong>：领土扩张建筑</li>
+                                    <li><strong>扩张范围</strong>：所在方域（1个）</li>
+                                </ul>
+
+                                <h3>建造权限</h3>
+                                <ul>
+                                    <li><strong>城镇中心</strong>：任何人可以去无主之地建造，费用个人承担</li>
+                                    <li><strong>哨所</strong>：任何城镇居民都可以建造哨所，费用个人承担，扩张的领土归所在城镇</li>
+                                    <li>无需申请许可，但需要满足基础条件</li>
+                                </ul>
+
+                                <h3>城镇扩张补助政策</h3>
+                                <p>城镇领主可以设置的政策：</p>
+                                <ul>
+                                    <li><strong>建造补助</strong>：为建造哨所的个人提供资金补助</li>
+                                    <li><strong>维护补助</strong>：为哨所维护提供部分资金支持</li>
+                                </ul>
+
+                                <h3>领土功能</h3>
+                                <ul>
+                                    <li><strong>产业建造限制</strong>：只有城镇领土内的方域才能建造产业建筑</li>
+                                    <li><strong>资源采集优先权</strong>：城镇领土内的资源当地居民可以采集，非城镇居民资源采集权由城镇政策决定</li>
+                                </ul>
+
+                                <h3>领土争夺</h3>
+                                <ul>
+                                    <li>暂未开放</li>
+                                </ul>
+                            </section>
+
+                            <!-- 公司系统 -->
+                            <section id="company" class="section">
+                                <h2>🏢 公司系统（暂未开放）</h2>
+                                
+                                <h3>公司成立</h3>
+                                <p>玩家可以成立公司，管理多个产业。</p>
+
+                                <h3>所有权与收益</h3>
+                                <ul>
+                                    <li>公司既可以由单一玩家独资，也可以由多人持股。</li>
+                                    <li>公司产出归公司所有，股东共享收益。</li>
+                                </ul>
+
+                            </section>
+
+                            <!-- 世界 Wiki -->
+                            <section id="world-wiki" class="section">
+                                <h2>📚 世界 Wiki</h2>
+                                
+                                <p>
+                                    世界 Wiki 是《天圆地方：HRES》的<strong>玩家共创知识库</strong>，类似于现实世界的维基百科，但专属于HRES这个虚拟世界。
+                                    在这里，<strong>每一位玩家都是编辑者</strong>，可以自由创建、编辑和完善词条，共同书写这个世界的百科全书。
+                                </p>
+
+                                <h3>什么是世界 Wiki？</h3>
+                                <p>
+                                    世界 Wiki 是一个<strong>完全由玩家驱动的知识库</strong>，收录的是<strong>游戏玩家产生的内容衍生的词条</strong>：
+                                    那些在游戏中真实存在的<strong>国家</strong>、<strong>城镇</strong>、<strong>公司</strong>、<strong>历史事件</strong>，
+                                    以及那些在虚拟世界中留下足迹的<strong>玩家</strong>。
+                                    每一个词条都是这个世界的一部分，记录着玩家们共同创造的历史与故事。
+                                </p>
+
+                                <h3>世界 Wiki 的特点</h3>
+                                <div class="feature-box">
+                                    <h4>自由编辑</h4>
+                                    <p>所有玩家都可以自由创建、编辑和完善词条，共同维护这个知识库的内容。</p>
+                                </div>
+
+                                <div class="feature-box">
+                                    <h4>玩家内容</h4>
+                                    <p>收录的是玩家在游戏中创造的内容，如国家、城镇、公司、历史事件等，记录真实发生在游戏世界中的故事。</p>
+                                </div>
+
+                                <div class="feature-box">
+                                    <h4>协作共建</h4>
+                                    <p>多个玩家可以协作完善同一个词条，让历史记录更加完整和准确。</p>
+                                </div>
+
+                                <h3>在世界 Wiki 中你可以做什么？</h3>
+                                <ul>
+                                    <li><strong>创建词条</strong>：为你的国家或城镇创建详细的词条，记录它们的建立、发展、重要事件和历史变迁</li>
+                                    <li><strong>编辑完善</strong>：与其他玩家协作，共同完善词条内容，补充遗漏的信息，修正错误的内容</li>
+                                    <li><strong>探索发现</strong>：浏览其他玩家创建的内容，了解这个世界中发生的精彩故事和历史事件</li>
+                                    <li><strong>见证历史</strong>：见证一个由玩家共同书写的、不断生长的虚拟世界史</li>
+                                </ul>
+
+                                <h3>词条类型</h3>
+                                <p>世界 Wiki 支持以下类型的词条：</p>
+                                <ul>
+                                    <li><strong>国家</strong>：记录国家的建立、政体、国体风格、重要事件等</li>
+                                    <li><strong>城镇</strong>：记录城镇的建立、发展、建筑、人口、重要事件等</li>
+                                    <li><strong>公司</strong>：记录公司的成立、业务、股东、重要事件等</li>
+                                    <li><strong>历史事件</strong>：记录游戏中发生的重要历史事件，如建国、战争、重大交易等</li>
+                                    <li><strong>玩家</strong>：记录在虚拟世界中留下足迹的玩家及其贡献</li>
+                                </ul>
+
+                                <div class="tip-box">
+                                    <strong>🎯 开始使用</strong>：点击页面顶部的"世界 Wiki"标签，即可进入世界 Wiki。使用搜索栏查找你感兴趣的国家、城镇或事件，或者点击"创建新词条"开始记录属于你的世界故事！
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- UGC Wiki内容 -->
+            <div id="ugc-wiki" class="main-content ugc-wiki">
+                <!-- UGC Wiki首页 -->
+                <div id="ugc-home" class="ugc-page active">
+                    <div class="header">
+                        <h1>世界 Wiki</h1>
+                        <p>玩家共创的HRES世界百科全书</p>
+                    </div>
+
+                    <!-- 世界Wiki介绍 -->
+                    <div class="feature-box" style="margin: 2rem 0; padding: 2rem; background: var(--card-bg); border-radius: 8px; border: 1px solid var(--border-color);">
+                        <h2 style="margin-top: 0; color: var(--accent-color);">📚 什么是世界 Wiki？</h2>
+                        <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">
+                            世界 Wiki 是一个<strong>完全由玩家驱动的知识库</strong>，类似于现实世界的维基百科，但专属于HRES这个虚拟世界。
+                            在这里，<strong>每一位玩家都是编辑者</strong>，可以自由创建、编辑和完善词条，共同书写这个世界的百科全书。
+                        </p>
+                        <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">
+                            世界 Wiki 收录的是<strong>游戏玩家产生的内容衍生的词条</strong>：那些在游戏中真实存在的<strong>国家</strong>、<strong>城镇</strong>、
+                            <strong>公司</strong>、<strong>历史事件</strong>，以及那些在虚拟世界中留下足迹的<strong>玩家</strong>。
+                            每一个词条都是这个世界的一部分，记录着玩家们共同创造的历史与故事。
+                        </p>
+                        <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 0;">
+                            <strong>在这里，你可以：</strong>
+                        </p>
+                        <ul style="font-size: 1.05rem; line-height: 1.8; margin-top: 1rem;">
+                            <li>为你的国家或城镇创建详细的词条，记录它们的建立、发展、重要事件和历史变迁</li>
+                            <li>与其他玩家协作，共同完善词条内容，让历史记录更加完整和准确</li>
+                            <li>探索其他玩家创建的内容，了解这个世界中发生的精彩故事</li>
+                            <li>见证一个由玩家共同书写的、不断生长的虚拟世界史</li>
+                        </ul>
+                        <div class="tip-box" style="margin-top: 1.5rem;">
+                            <strong>🎯 开始探索</strong>：使用搜索栏查找你感兴趣的国家、城镇或事件，或者点击"创建新词条"开始记录属于你的世界故事！
+                        </div>
+                    </div>
+
+                    <!-- 搜索栏 -->
+                    <div class="search-bar">
+                        <input type="text" class="search-input" id="search-input" placeholder="搜索词条..." onkeyup="handleSearch(event)">
+                    </div>
+
+                    <!-- 分类筛选 -->
+                    <div class="category-filter">
+                        <button class="category-btn active" onclick="filterCategory('all')">全部</button>
+                        <button class="category-btn" onclick="filterCategory('country')">国家</button>
+                        <button class="category-btn" onclick="filterCategory('town')">城镇</button>
+                        <button class="category-btn" onclick="filterCategory('player')">玩家</button>
+                        <button class="category-btn" onclick="filterCategory('company')">公司</button>
+                        <button class="category-btn" onclick="filterCategory('event')">历史事件</button>
+                    </div>
+
+                    <!-- 词条列表 -->
+                    <div id="entry-list-container">
+                        <div class="entry-list" id="entry-list"></div>
+                    </div>
+
+                    <!-- 创建词条按钮 -->
+                    <div style="text-align: center; margin-top: 3rem;">
+                        <button class="btn btn-primary" onclick="showCreateForm()">+ 创建新词条</button>
+                    </div>
+                </div>
+
+                <!-- 词条详情页 -->
+                <div id="ugc-detail" class="ugc-page entry-detail">
+                    <div class="entry-header">
+                        <h1 id="detail-title"></h1>
+                        <div class="entry-info">
+                            <span id="detail-type"></span>
+                            <span>创建者: <span id="detail-creator"></span></span>
+                            <span>最后编辑: <span id="detail-editor"></span></span>
+                            <span>更新时间: <span id="detail-updated"></span></span>
+                        </div>
+                    </div>
+                    <div class="entry-content" id="detail-content"></div>
+                    <div class="entry-actions">
+                        <button class="btn btn-primary" onclick="editEntry()">编辑词条</button>
+                        <button class="btn btn-secondary" onclick="backToHome()">返回列表</button>
+                    </div>
+                </div>
+
+                <!-- 编辑/创建页面 -->
+                <div id="ugc-edit" class="ugc-page edit-form">
+                    <div class="header">
+                        <h1 id="edit-title">创建新词条</h1>
+                    </div>
+                    <form id="entry-form" onsubmit="saveEntry(event)">
+                        <div class="form-group">
+                            <label>词条标题 *</label>
+                            <input type="text" id="form-title" required>
+                        </div>
+                        <div class="form-group">
+                            <label>词条类型 *</label>
+                            <select id="form-type" required>
+                                <option value="">请选择类型</option>
+                                <option value="country">国家</option>
+                                <option value="town">城镇</option>
+                                <option value="player">玩家</option>
+                                <option value="company">公司</option>
+                                <option value="event">历史事件</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>词条内容 *</label>
+                            <textarea id="form-content" required placeholder="使用Markdown格式编写词条内容..."></textarea>
+                            <small style="color: var(--text-light); margin-top: 0.5rem; display: block;">
+                                支持Markdown格式：**粗体**、*斜体*、# 标题、- 列表等
+                            </small>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">保存</button>
+                            <button type="button" class="btn btn-secondary" onclick="cancelEdit()">取消</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="wiki-data.js"></script>
+    <script>
+        // 标签页切换
+        function switchTab(tab) {
+            const systemBtn = document.querySelector('.tab-btn:first-child');
+            const ugcBtn = document.querySelector('.tab-btn:last-child');
+            const systemWiki = document.getElementById('system-wiki');
+            const ugcWiki = document.getElementById('ugc-wiki');
+
+            if (tab === 'system') {
+                systemBtn.classList.add('active');
+                ugcBtn.classList.remove('active');
+                systemWiki.style.display = 'block';
+                ugcWiki.classList.remove('active');
+                loadSystemWiki();
+            } else {
+                systemBtn.classList.remove('active');
+                ugcBtn.classList.add('active');
+                systemWiki.style.display = 'none';
+                ugcWiki.classList.add('active');
+                loadUGCWiki();
+            }
+        }
+
+        // 加载系统Wiki内容（初始化导航）
+        function loadSystemWiki() {
+            initSystemWikiNav();
+        }
+
+        // 初始化系统Wiki导航
+        function initSystemWikiNav() {
+            const sections = document.querySelectorAll('#system-wiki .section');
+            const navLinks = document.querySelectorAll('#system-wiki .nav-menu a');
+            
+            if (sections.length === 0) return;
+            
+            // 默认显示第一个section（游戏概览）
+            if (sections.length > 0 && !document.querySelector('#system-wiki .section.active')) {
+                sections[0].classList.add('active');
+                navLinks[0].classList.add('active');
+            }
+            
+            // 点击导航链接时切换section
+            navLinks.forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const href = this.getAttribute('href');
+                    const targetId = href.substring(1); // 移除 # 号
+                    const targetSection = document.querySelector(href);
+                    
+                    if (targetSection) {
+                        // 隐藏所有section
+                        sections.forEach(section => {
+                            section.classList.remove('active');
+                        });
+                        
+                        // 移除所有导航链接的active状态
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                        });
+                        
+                        // 显示目标section
+                        targetSection.classList.add('active');
+                        this.classList.add('active');
+                        
+                        // 滚动到顶部（因为现在只显示一个section）
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        // UGC Wiki相关函数
+        let currentCategory = 'all';
+        let currentEntryId = null;
+
+        // 初始化UGC Wiki
+        function loadUGCWiki() {
+            renderEntryList();
+        }
+
+        // 渲染词条列表
+        function renderEntryList(filteredEntries = null) {
+            const container = document.getElementById('entry-list');
+            const entries = filteredEntries || wikiData.getEntries(currentCategory);
+            
+            if (entries.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h2>暂无词条</h2>
+                        <p>还没有${currentCategory === 'all' ? '' : getCategoryName(currentCategory)}词条，快来创建第一个吧！</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = entries.map(entry => `
+                <div class="entry-card" onclick="viewEntry('${entry.id}')">
+                    <span class="entry-type">${getCategoryName(entry.type)}</span>
+                    <h3>${entry.title}</h3>
+                    <p>${entry.content.substring(0, 100)}${entry.content.length > 100 ? '...' : ''}</p>
+                    <div class="entry-meta">
+                        创建者: ${entry.creator} | 更新: ${formatDate(entry.updatedAt)}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 查看词条详情
+        function viewEntry(id) {
+            const entry = wikiData.getEntry(id);
+            if (!entry) return;
+
+            currentEntryId = id;
+            document.getElementById('detail-title').textContent = entry.title;
+            document.getElementById('detail-type').textContent = getCategoryName(entry.type);
+            document.getElementById('detail-creator').textContent = entry.creator;
+            document.getElementById('detail-editor').textContent = entry.lastEditor || entry.creator;
+            document.getElementById('detail-updated').textContent = formatDate(entry.updatedAt);
+            document.getElementById('detail-content').innerHTML = markdownToHTML(entry.content);
+
+            showPage('ugc-detail');
+        }
+
+        // 编辑词条
+        function editEntry() {
+            if (!currentEntryId) return;
+            const entry = wikiData.getEntry(currentEntryId);
+            if (!entry) return;
+
+            document.getElementById('edit-title').textContent = '编辑词条';
+            document.getElementById('form-title').value = entry.title;
+            document.getElementById('form-type').value = entry.type;
+            document.getElementById('form-content').value = entry.content;
+
+            showPage('ugc-edit');
+        }
+
+        // 显示创建表单
+        function showCreateForm() {
+            currentEntryId = null;
+            document.getElementById('edit-title').textContent = '创建新词条';
+            document.getElementById('entry-form').reset();
+            showPage('ugc-edit');
+        }
+
+        // 保存词条
+        function saveEntry(event) {
+            event.preventDefault();
+            const title = document.getElementById('form-title').value;
+            const type = document.getElementById('form-type').value;
+            const content = document.getElementById('form-content').value;
+
+            if (currentEntryId) {
+                wikiData.updateEntry(currentEntryId, { title, type, content });
+            } else {
+                wikiData.createEntry({ title, type, content, creator: '当前用户' });
+            }
+
+            backToHome();
+        }
+
+        // 取消编辑
+        function cancelEdit() {
+            backToHome();
+        }
+
+        // 返回首页
+        function backToHome() {
+            showPage('ugc-home');
+            renderEntryList();
+        }
+
+        // 显示页面
+        function showPage(pageId) {
+            document.querySelectorAll('.ugc-page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        // 分类筛选
+        function filterCategory(category) {
+            currentCategory = category;
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            renderEntryList();
+        }
+
+        // 搜索
+        function handleSearch(event) {
+            if (event.key === 'Enter' || event.target.value === '') {
+                const query = event.target.value.toLowerCase();
+                const entries = wikiData.searchEntries(query);
+                renderEntryList(entries);
+            }
+        }
+
+        // 工具函数
+        function getCategoryName(type) {
+            const names = {
+                'country': '国家',
+                'town': '城镇',
+                'player': '玩家',
+                'company': '公司',
+                'event': '历史事件'
+            };
+            return names[type] || type;
+        }
+
+        function formatDate(timestamp) {
+            const date = new Date(timestamp);
+            return date.toLocaleDateString('zh-CN') + ' ' + date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function markdownToHTML(markdown) {
+            return markdown
+                .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.+?)\*/g, '<em>$1</em>')
+                .replace(/^# (.+)$/gm, '<h2>$1</h2>')
+                .replace(/^## (.+)$/gm, '<h3>$1</h3>')
+                .replace(/^### (.+)$/gm, '<h4>$1</h4>')
+                .replace(/^- (.+)$/gm, '<li>$1</li>')
+                .replace(/\n/g, '<br>');
+        }
+
+        // 初始化
+        window.addEventListener('DOMContentLoaded', () => {
+            loadSystemWiki();
+        });
+        
+        window.addEventListener('load', () => {
+            if (document.getElementById('system-wiki').style.display !== 'none') {
+                loadSystemWiki();
+            }
+        });
+    </script>
+</body>
+</html>
