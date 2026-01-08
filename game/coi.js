@@ -115,6 +115,12 @@ if (typeof window === 'undefined') {
             return;
         }
 
+        // Check if running on file:// protocol (not supported for Service Workers)
+        if (window.location.protocol === 'file:') {
+            !coi.quiet && console.log("COOP/COEP Service Worker not registered, file:// protocol is not supported. Please use http:// or https://");
+            return;
+        }
+
         // In some environments (e.g. Firefox private mode) this won't be available
         if (!n.serviceWorker) {
             !coi.quiet && console.error("COOP/COEP Service Worker not registered, perhaps due to private mode.");
