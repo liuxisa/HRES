@@ -104,18 +104,15 @@ body {
 		</noscript>
 
 		<div id="status">
-			<img id="status-splash" class="show-image--true fullsize--true use-filter--true" src="index.png" alt="">
+			<img id="status-splash" class="show-image--true fullsize--true use-filter--true" src="index.icon.png" alt="">
 			<progress id="status-progress"></progress>
 			<div id="status-notice"></div>
 		</div>
 
 		<script src="index.js"></script>
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":114529632,"index.wasm":43699190},"focusCanvas":true,"gdextensionLibs":[]};
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":114529648,"index.wasm":43699190},"focusCanvas":true,"gdextensionLibs":[]};
 // R2 存储配置 - 从 Cloudflare R2 加载大文件
-// 请将下面的 URL 替换为你的 Worker URL 或自定义域名
-// 例如：const R2_BASE_URL = 'https://hres-assets.xxxxx.workers.dev';
-// 或者如果配置了自定义域名：const R2_BASE_URL = 'https://cdn.hres.world';
 const R2_BASE_URL = 'https://cdn.hres.world';
 
 const GODOT_THREADS_ENABLED = false;
@@ -214,7 +211,7 @@ const engine = new Engine(GODOT_CONFIG);
 		console.log('WASM:', wasmUrl);
 		
 		// 先预加载 PCK 文件到虚拟文件系统
-		engine.preloadFile(pckUrl, 'index.pck', 114529632).then(() => {
+		engine.preloadFile(pckUrl, 'index.pck', 114529648).then(() => {
 			console.log('PCK 文件预加载完成，加载 WASM 引擎...');
 			// 从 R2 加载 WASM 文件（使用 basePath，会自动添加 .wasm 后缀）
 			const wasmBasePath = `${R2_BASE_URL}/index`;
