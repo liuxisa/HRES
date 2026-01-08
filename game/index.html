@@ -111,6 +111,13 @@ body {
 
 		<script src="index.js"></script>
 		<script>
+// R2 存储配置 - 从 Cloudflare R2 加载大文件
+// 请将下面的 URL 替换为你的 Worker URL 或自定义域名
+// 例如：const R2_BASE_URL = 'https://hres-assets.xxxxx.workers.dev';
+// 或者如果配置了自定义域名：const R2_BASE_URL = 'https://cdn.hres.world';
+const R2_BASE_URL = 'https://cdn.hres.world'; // TODO: 替换为实际的 Worker URL
+const USE_R2 = true; // 是否使用 R2（设置为 false 可回退到本地文件，用于调试）
+
 const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":114544992,"index.wasm":43699190},"focusCanvas":true,"gdextensionLibs":[]};
 const GODOT_THREADS_ENABLED = false;
 const engine = new Engine(GODOT_CONFIG);
@@ -199,19 +206,85 @@ const engine = new Engine(GODOT_CONFIG);
 		}
 	} else {
 		setStatusMode('progress');
-		engine.startGame({
-			'onProgress': function (current, total) {
-				if (current > 0 && total > 0) {
-					statusProgress.value = current;
-					statusProgress.max = total;
-				} else {
-					statusProgress.removeAttribute('value');
-					statusProgress.removeAttribute('max');
-				}
-			},
-		}).then(() => {
-			setStatusMode('hidden');
-		}, displayFailureNotice);
+		
+		// 如果使用 R2，从 R2 加载大文件
+		if (USE_R2 && R2_BASE_URL !== 'https://YOUR-WORKER-URL.workers.dev') {
+			const pckUrl = `${R2_BASE_URL}/index.pck`;
+			const wasmUrl = `${R2_BASE_URL}/index.wasm`;
+			console.log('从 R2 加载大文件...');
+			console.log('PCK:', pckUrl);
+			console.log('WASM:', wasmUrl);
+			
+			// 先预加载 PCK 文件到虚拟文件系统
+			engine.preloadFile(pckUrl, 'index.pck', 114544992).then(() => {
+				console.log('PCK 文件预加载完成，加载 WASM 引擎...');
+				// 从 R2 加载 WASM 文件（使用 basePath，会自动添加 .wasm 后缀）
+				// 注意：basePath 应该是 ${R2_BASE_URL}/index，这样会加载 ${R2_BASE_URL}/index.wasm
+				// 使用 'index' 作为 basePath，但实际上会从 R2 URL 加载
+				// 我们需要直接指定完整的 WASM URL
+				const wasmBasePath = `${R2_BASE_URL}/index`;
+				return engine.load(wasmBasePath, 43699190);
+			}).then(() => {
+				console.log('引擎加载完成，初始化...');
+				// 初始化引擎（不需要参数，因为 engine.load 已经设置了 loadPromise）
+				return engine.init();
+			}).then(() => {
+				console.log('引擎初始化完成，启动游戏...');
+				// 设置启动参数（PCK 文件已经在虚拟文件系统中）
+				engine.config.args = ['--main-pack', 'index.pck'].concat(engine.config.args);
+				// 启动游戏
+				return engine.start({
+					'onProgress': function (current, total) {
+						if (current > 0 && total > 0) {
+							statusProgress.value = current;
+							statusProgress.max = total;
+						} else {
+							statusProgress.removeAttribute('value');
+							statusProgress.removeAttribute('max');
+						}
+					},
+				});
+			}).then(() => {
+				setStatusMode('hidden');
+			}, (err) => {
+				console.error('从 R2 加载失败:', err);
+				// 如果 R2 加载失败，回退到本地文件
+				console.log('回退到本地文件加载...');
+				engine.startGame({
+					'onProgress': function (current, total) {
+						if (current > 0 && total > 0) {
+							statusProgress.value = current;
+							statusProgress.max = total;
+						} else {
+							statusProgress.removeAttribute('value');
+							statusProgress.removeAttribute('max');
+						}
+					},
+				}).then(() => {
+					setStatusMode('hidden');
+				}, displayFailureNotice);
+			});
+		} else {
+			// 不使用 R2，使用原来的方式（本地文件）
+			if (!USE_R2) {
+				console.log('使用本地文件加载...');
+			} else {
+				console.warn('R2_BASE_URL 未配置，使用本地文件加载...');
+			}
+			engine.startGame({
+				'onProgress': function (current, total) {
+					if (current > 0 && total > 0) {
+						statusProgress.value = current;
+						statusProgress.max = total;
+					} else {
+						statusProgress.removeAttribute('value');
+						statusProgress.removeAttribute('max');
+					}
+				},
+			}).then(() => {
+				setStatusMode('hidden');
+			}, displayFailureNotice);
+		}
 	}
 }());
 		</script>
