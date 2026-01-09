@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+	<title>正在加载游戏... - HRES</title>
+	<style>
+		html, body {
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			font-family: 'Noto Sans', 'Droid Sans', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+		}
+
+		body {
+			background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%);
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			color: #ffffff;
+		}
+
+		.loading-container {
+			max-width: 800px;
+			width: 90%;
+			text-align: center;
+		}
+
+		.loading-title {
+			font-size: 32px;
+			font-weight: 600;
+			margin-bottom: 20px;
+			color: #ffffff;
+			text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+			letter-spacing: 1px;
+		}
+
+		.loading-text {
+			font-size: 18px;
+			font-weight: 500;
+			margin-bottom: 50px;
+			color: #ffffff;
+			text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+			letter-spacing: 0.5px;
+			line-height: 1.6;
+		}
+
+		.progress-container {
+			width: 100%;
+			max-width: 600px;
+			margin: 0 auto;
+		}
+
+		.progress-bar {
+			width: 100%;
+			height: 32px;
+			border-radius: 16px;
+			background-color: rgba(0, 0, 0, 0.6);
+			border: 2px solid rgba(255, 255, 255, 0.2);
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+			overflow: hidden;
+		}
+
+		.progress-bar::-webkit-progress-bar {
+			background-color: rgba(0, 0, 0, 0.6);
+			border-radius: 16px;
+		}
+
+		.progress-bar::-webkit-progress-value {
+			background: linear-gradient(90deg, #4a90e2 0%, #357abd 50%, #4a90e2 100%);
+			border-radius: 16px;
+			transition: width 0.3s ease;
+			box-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
+		}
+
+		.progress-bar::-moz-progress-bar {
+			background: linear-gradient(90deg, #4a90e2 0%, #357abd 50%, #4a90e2 100%);
+			border-radius: 16px;
+			box-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
+		}
+
+		.progress-info {
+			margin-top: 20px;
+			font-size: 14px;
+			color: #b0b0b0;
+		}
+
+		.error-message {
+			color: #e74c3c;
+			background-color: rgba(231, 76, 60, 0.1);
+			border: 1px solid #e74c3c;
+			border-radius: 8px;
+			padding: 20px;
+			margin-top: 30px;
+			display: none;
+		}
+
+		.retry-button {
+			margin-top: 20px;
+			padding: 12px 24px;
+			background-color: #4a90e2;
+			color: white;
+			border: none;
+			border-radius: 8px;
+			font-size: 16px;
+			cursor: pointer;
+			transition: background-color 0.3s;
+		}
+
+		.retry-button:hover {
+			background-color: #357abd;
+		}
+
+		@media (max-width: 768px) {
+			.loading-title {
+				font-size: 24px;
+			}
+
+			.loading-text {
+				font-size: 16px;
+				margin-bottom: 40px;
+			}
+
+			.progress-bar {
+				height: 28px;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="loading-container">
+		<h1 class="loading-title">天圆地方 HRES</h1>
+		<div class="loading-text" id="status-text">正在检查本地缓存...</div>
+		<div class="progress-container">
+			<progress class="progress-bar" id="progress-bar" value="0" max="100"></progress>
+			<div class="progress-info" id="progress-info"></div>
+		</div>
+		<div class="error-message" id="error-message">
+			<div id="error-text"></div>
+			<button class="retry-button" id="retry-button">重试</button>
+		</div>
+	</div>
+
+	<script>
+		// R2 存储配置
+		const R2_BASE_URL = 'https://cdn.hres.world';
+		const DB_NAME = 'hres_game_files';
+		const DB_VERSION = 1;
+		const STORE_NAME = 'files';
+		const FILE_VERSION_KEY = 'file_version';
+		const CURRENT_FILE_VERSION = '1.0.0'; // 更新这个版本号可以强制重新下载
+
+		// 文件信息
+		// 注意：size 字段仅用于进度显示估算，实际验证时不会检查大小（因为每次导出大小可能不同）
+		// PCK 文件会被 game/index.html 从 IndexedDB 读取使用
+		// WASM 文件也会被下载到 IndexedDB，但 game/index.html 会从网络加载（因为 engine.load() 不支持 Blob URL）
+		// 不过下载到 IndexedDB 也没坏处，浏览器缓存会让网络请求很快，而且将来可能有用
+		const FILES = [
+			{ name: 'index.pck', size: 114529328 },  // 大小仅用于进度显示，不用于验证
+			{ name: 'index.wasm', size: 43699190 }   // 大小仅用于进度显示，不用于验证
+		];
+
+		let db = null;
+
+		// 初始化 IndexedDB
+		async function initDB() {
+			return new Promise((resolve, reject) => {
+				const request = indexedDB.open(DB_NAME, DB_VERSION);
+
+				request.onerror = () => reject(request.error);
+				request.onsuccess = () => {
+					db = request.result;
+					resolve(db);
+				};
+
+				request.onupgradeneeded = (event) => {
+					const db = event.target.result;
+					if (!db.objectStoreNames.contains(STORE_NAME)) {
+						db.createObjectStore(STORE_NAME);
+					}
+				};
+			});
+		}
+
+		// 从 IndexedDB 读取文件
+		async function getFileFromDB(filename) {
+			return new Promise((resolve, reject) => {
+				const transaction = db.transaction([STORE_NAME], 'readonly');
+				const store = transaction.objectStore(STORE_NAME);
+				const request = store.get(filename);
+
+				request.onerror = () => reject(request.error);
+				request.onsuccess = () => {
+					resolve(request.result);
+				};
+			});
+		}
+
+		// 将文件保存到 IndexedDB
+		async function saveFileToDB(filename, data) {
+			return new Promise((resolve, reject) => {
+				const transaction = db.transaction([STORE_NAME], 'readwrite');
+				const store = transaction.objectStore(STORE_NAME);
+				const request = store.put(data, filename);
+
+				request.onerror = () => reject(request.error);
+				request.onsuccess = () => {
+					resolve();
+				};
+			});
+		}
+
+		// 检查文件版本
+		async function checkFileVersion() {
+			try {
+				const version = await getFileFromDB(FILE_VERSION_KEY);
+				return version === CURRENT_FILE_VERSION;
+			} catch (error) {
+				return false;
+			}
+		}
+
+		// 保存文件版本
+		async function saveFileVersion() {
+			await saveFileToDB(FILE_VERSION_KEY, CURRENT_FILE_VERSION);
+		}
+
+		// 下载文件（带进度）
+		function downloadFile(url, onProgress) {
+			return new Promise((resolve, reject) => {
+				const xhr = new XMLHttpRequest();
+				xhr.open('GET', url, true);
+				xhr.responseType = 'arraybuffer';
+
+				xhr.addEventListener('progress', (e) => {
+					if (onProgress && e.lengthComputable) {
+						onProgress(e.loaded, e.total);
+					}
+				});
+
+				xhr.addEventListener('load', () => {
+					if (xhr.status === 200) {
+						resolve(xhr.response);
+					} else {
+						reject(new Error(`HTTP error! status: ${xhr.status}`));
+					}
+				});
+
+				xhr.addEventListener('error', () => {
+					reject(new Error('Network error occurred'));
+				});
+
+				xhr.addEventListener('abort', () => {
+					reject(new Error('Download aborted'));
+				});
+
+				xhr.send();
+			});
+		}
+
+		// 更新进度显示
+		function updateProgress(current, total, text) {
+			const progressBar = document.getElementById('progress-bar');
+			const progressInfo = document.getElementById('progress-info');
+			const statusText = document.getElementById('status-text');
+
+			if (current > 0 && total > 0) {
+				const percent = Math.round((current / total) * 100);
+				progressBar.value = percent;
+				const mbDownloaded = (current / (1024 * 1024)).toFixed(1);
+				const mbTotal = (total / (1024 * 1024)).toFixed(1);
+				progressInfo.textContent = `${mbDownloaded} MB / ${mbTotal} MB (${percent}%)`;
+			}
+
+			if (text) {
+				statusText.textContent = text;
+			}
+		}
+
+		// 显示错误
+		function showError(message) {
+			const errorMessage = document.getElementById('error-message');
+			const errorText = document.getElementById('error-text');
+			errorText.textContent = message;
+			errorMessage.style.display = 'block';
+		}
+
+		// 隐藏错误
+		function hideError() {
+			document.getElementById('error-message').style.display = 'none';
+		}
+
+		// 检查文件是否已缓存
+		async function checkCachedFiles() {
+			try {
+				const versionOk = await checkFileVersion();
+				if (!versionOk) {
+					return false;
+				}
+
+				// 检查所有文件是否存在（不检查大小，因为每次导出大小可能不同）
+				for (const file of FILES) {
+					const cached = await getFileFromDB(file.name);
+					if (!cached) {
+						return false;
+					}
+				}
+
+				return true;
+			} catch (error) {
+				console.error('检查缓存文件失败:', error);
+				return false;
+			}
+		}
+
+		// 下载所有文件
+		async function downloadAllFiles() {
+			// 使用预定义大小进行初始估算（仅用于进度显示，不用于验证）
+			let estimatedTotalSize = FILES.reduce((sum, file) => sum + file.size, 0);
+			let downloadedSize = 0;
+			let actualTotalSize = estimatedTotalSize; // 会在下载过程中更新为实际大小
+
+			for (let i = 0; i < FILES.length; i++) {
+				const file = FILES[i];
+				const url = `${R2_BASE_URL}/${file.name}`;
+				let fileActualSize = file.size; // 实际文件大小，会在下载时更新
+
+				updateProgress(downloadedSize, actualTotalSize, `正在下载 ${file.name}...`);
+
+				try {
+					const data = await downloadFile(url, (loaded, total) => {
+						// 使用实际下载大小更新总大小（如果可用）
+						if (total && total > 0) {
+							fileActualSize = total;
+							// 更新总大小：已下载的大小 + 当前文件的实际大小 + 剩余文件的估算大小
+							const remainingEstimatedSize = FILES.slice(i + 1).reduce((sum, f) => sum + f.size, 0);
+							actualTotalSize = downloadedSize + total + remainingEstimatedSize;
+						}
+						const fileProgress = downloadedSize + loaded;
+						updateProgress(fileProgress, actualTotalSize, `正在下载 ${file.name}...`);
+					});
+
+					// 使用实际文件大小
+					fileActualSize = data.byteLength;
+
+					// 保存到 IndexedDB
+					updateProgress(downloadedSize + fileActualSize, actualTotalSize, `正在保存 ${file.name}...`);
+					await saveFileToDB(file.name, data);
+					downloadedSize += fileActualSize;
+					
+					// 更新总大小为实际值
+					const remainingEstimatedSize = FILES.slice(i + 1).reduce((sum, f) => sum + f.size, 0);
+					actualTotalSize = downloadedSize + remainingEstimatedSize;
+				} catch (error) {
+					throw new Error(`下载 ${file.name} 失败: ${error.message}`);
+				}
+			}
+
+			// 保存文件版本
+			await saveFileVersion();
+		}
+
+		// 跳转到游戏页面
+		function redirectToGame() {
+			window.location.href = 'index.html';
+		}
+
+		// 主函数
+		async function main() {
+			try {
+				// 初始化数据库
+				await initDB();
+
+				// 检查是否有缓存文件
+				updateProgress(0, 100, '正在检查本地缓存...');
+				const hasCachedFiles = await checkCachedFiles();
+
+				if (hasCachedFiles) {
+					updateProgress(100, 100, '发现本地缓存文件，准备启动游戏...');
+					setTimeout(() => {
+						redirectToGame();
+					}, 500);
+					return;
+				}
+
+				// 需要下载文件
+				updateProgress(0, 100, '开始下载游戏文件...');
+				await downloadAllFiles();
+
+				updateProgress(100, 100, '下载完成！正在启动游戏...');
+				setTimeout(() => {
+					redirectToGame();
+				}, 500);
+			} catch (error) {
+				console.error('加载失败:', error);
+				showError(`加载失败: ${error.message}`);
+			}
+		}
+
+		// 重试按钮
+		document.getElementById('retry-button').addEventListener('click', () => {
+			hideError();
+			main();
+		});
+
+		// 启动
+		main();
+	</script>
+</body>
+</html>
