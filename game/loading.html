@@ -159,7 +159,7 @@
 		// WASM 文件也会被下载到 IndexedDB，但 game/index.html 会从网络加载（因为 engine.load() 不支持 Blob URL）
 		// 不过下载到 IndexedDB 也没坏处，浏览器缓存会让网络请求很快，而且将来可能有用
 		const FILES = [
-			{ name: 'index.pck', size: 114529328 },  // 大小仅用于进度显示，不用于验证
+			{ name: 'index.pck', size: 114529424 },  // 大小仅用于进度显示，不用于验证
 			{ name: 'index.wasm', size: 43699190 }   // 大小仅用于进度显示，不用于验证
 		];
 
@@ -328,7 +328,7 @@
 				const url = `${R2_BASE_URL}/${file.name}`;
 				let fileActualSize = file.size; // 实际文件大小，会在下载时更新
 
-				updateProgress(downloadedSize, actualTotalSize, `正在下载 ${file.name}...`);
+				updateProgress(downloadedSize, actualTotalSize, `正在下载游戏资源包...`);
 
 				try {
 					const data = await downloadFile(url, (loaded, total) => {
