@@ -2189,6 +2189,35 @@
             
             if (sections.length === 0) return;
             
+            // 检查URL hash，如果有则跳转到对应section
+            const hash = window.location.hash;
+            if (hash) {
+                const targetSection = document.querySelector(hash);
+                if (targetSection && targetSection.classList.contains('section')) {
+                    // 隐藏所有section
+                    sections.forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    // 移除所有导航链接的active状态
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    // 显示目标section
+                    targetSection.classList.add('active');
+                    // 激活对应的导航链接
+                    const targetLink = document.querySelector(`#system-wiki .nav-menu a[href="${hash}"]`);
+                    if (targetLink) {
+                        targetLink.classList.add('active');
+                    }
+                    // 滚动到顶部
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                    return;
+                }
+            }
+            
             // 默认显示第一个section（游戏概览）
             if (sections.length > 0 && !document.querySelector('#system-wiki .section.active')) {
                 sections[0].classList.add('active');
@@ -2386,12 +2415,37 @@
 
         // 初始化
         window.addEventListener('DOMContentLoaded', () => {
+            // 如果有hash，确保切换到系统Wiki标签
+            if (window.location.hash) {
+                switchTab('system');
+            }
             loadSystemWiki();
         });
         
         window.addEventListener('load', () => {
             if (document.getElementById('system-wiki').style.display !== 'none') {
                 loadSystemWiki();
+            }
+            // 处理hash变化
+            if (window.location.hash) {
+                const hash = window.location.hash;
+                const targetSection = document.querySelector(hash);
+                if (targetSection && targetSection.classList.contains('section')) {
+                    switchTab('system');
+                    setTimeout(() => {
+                        loadSystemWiki();
+                    }, 100);
+                }
+            }
+        });
+        
+        // 监听hash变化
+        window.addEventListener('hashchange', () => {
+            if (window.location.hash) {
+                switchTab('system');
+                setTimeout(() => {
+                    loadSystemWiki();
+                }, 100);
             }
         });
     </script>
