@@ -154,13 +154,13 @@
 		const CURRENT_FILE_VERSION = '1.0.0'; // 更新这个版本号可以强制重新下载
 
 		// 文件信息
-		// 注意：size 字段仅用于进度显示估算，实际验证时不会检查大小（因为每次导出大小可能不同）
+		// 注意：size 字段用于进度显示估算和缓存验证（与缓存文件大小进行比较）
 		// PCK 文件会被 game/index.html 从 IndexedDB 读取使用
 		// WASM 文件也会被下载到 IndexedDB，但 game/index.html 会从网络加载（因为 engine.load() 不支持 Blob URL）
 		// 不过下载到 IndexedDB 也没坏处，浏览器缓存会让网络请求很快，而且将来可能有用
 		const FILES = [
-			{ name: 'index.pck', size: 110532960 },  // 大小仅用于进度显示，不用于验证
-			{ name: 'index.wasm', size: 43699190 }   // 大小仅用于进度显示，不用于验证
+			{ name: 'index.pck', size: 110532960 },  // 大小用于进度显示和缓存验证
+			{ name: 'index.wasm', size: 43699190 }   // 大小用于进度显示和缓存验证
 		];
 
 		let db = null;
@@ -301,10 +301,19 @@
 					return false;
 				}
 
-				// 检查所有文件是否存在（不检查大小，因为每次导出大小可能不同）
+				// 检查所有文件是否存在，并验证大小是否与最新文件大小一致
 				for (const file of FILES) {
 					const cached = await getFileFromDB(file.name);
 					if (!cached) {
+						return false;
+					}
+
+					const cachedSize = cached.byteLength;
+					const expectedSize = file.size;
+
+					// 如果大小不一致，说明缓存文件已过时
+					if (cachedSize !== expectedSize) {
+						console.log(`文件 ${file.name} 大小不匹配: 缓存=${cachedSize}, 期望=${expectedSize}`);
 						return false;
 					}
 				}

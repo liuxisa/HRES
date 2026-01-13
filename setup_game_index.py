@@ -180,7 +180,7 @@ def find_and_replace_loading_logic(content):
 
 
 def update_loading_html_file_sizes(loading_html_path, pck_size, wasm_size):
-    """更新 loading.html 中的文件大小配置（可选，仅用于进度显示估算，不用于验证）"""
+    """更新 loading.html 中的文件大小配置（用于进度显示和缓存验证）"""
     if not os.path.exists(loading_html_path):
         print(f"警告: loading.html 不存在: {loading_html_path}，跳过更新")
         return False
@@ -189,7 +189,7 @@ def update_loading_html_file_sizes(loading_html_path, pck_size, wasm_size):
         content = f.read()
     
     # 查找并替换 FILES 数组中的文件大小
-    # 注意：这些大小仅用于进度显示估算，实际验证时不会检查大小
+    # 注意：这些大小用于进度显示估算和缓存验证（与缓存文件大小进行比较）
     # 匹配模式: { name: 'index.pck', size: 数字 } 或 { name: "index.pck", size: 数字 }
     pck_pattern = r"(\{\s*name:\s*['\"]index\.pck['\"],\s*size:\s*)\d+(\s*\})"
     wasm_pattern = r"(\{\s*name:\s*['\"]index\.wasm['\"],\s*size:\s*)\d+(\s*\})"
@@ -197,19 +197,19 @@ def update_loading_html_file_sizes(loading_html_path, pck_size, wasm_size):
     new_content = content
     updated = False
     
-    # 替换 index.pck 的大小（可选，仅用于进度显示估算）
+    # 替换 index.pck 的大小
     if re.search(pck_pattern, content):
         new_content = re.sub(pck_pattern, f"\\g<1>{pck_size}\\g<2>", new_content)
         updated = True
-        print(f"  - 已更新 loading.html 中的 index.pck 大小（仅用于进度显示估算）: {pck_size}")
+        print(f"  - 已更新 loading.html 中的 index.pck 大小（用于进度显示和缓存验证）: {pck_size}")
     else:
         print(f"  警告: 无法在 loading.html 中找到 index.pck 的大小配置")
     
-    # 替换 index.wasm 的大小（可选，仅用于进度显示估算）
+    # 替换 index.wasm 的大小
     if re.search(wasm_pattern, content):
         new_content = re.sub(wasm_pattern, f"\\g<1>{wasm_size}\\g<2>", new_content)
         updated = True
-        print(f"  - 已更新 loading.html 中的 index.wasm 大小（仅用于进度显示估算）: {wasm_size}")
+        print(f"  - 已更新 loading.html 中的 index.wasm 大小（用于进度显示和缓存验证）: {wasm_size}")
     else:
         print(f"  警告: 无法在 loading.html 中找到 index.wasm 的大小配置")
     
