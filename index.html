@@ -654,9 +654,87 @@
         /* 简介卡片字体 */
         .feature-box {
         }
+
+        /* 侧边悬窗 - 玩家群二维码 */
+        .side-qr-float {
+            position: fixed;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            z-index: 999;
+            display: flex;
+            align-items: stretch;
+        }
+        .side-qr-tab {
+            writing-mode: vertical-rl;
+            letter-spacing: 0.2em;
+            padding: 1rem 0.6rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-right: none;
+            border-radius: 8px 0 0 8px;
+            cursor: pointer;
+            color: var(--highlight-color);
+            font-size: 0.9rem;
+            box-shadow: var(--shadow);
+        }
+        .side-qr-tab:hover {
+            color: var(--highlight-color);
+        }
+        .side-qr-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-right: none;
+            border-radius: 8px 0 0 8px;
+            padding: 1rem;
+            box-shadow: var(--shadow);
+            display: none;
+        }
+        .side-qr-float.open .side-qr-panel {
+            display: block;
+        }
+        .side-qr-panel h4 {
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-dark);
+        }
+        .side-qr-item {
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .side-qr-item:last-child {
+            margin-bottom: 0;
+        }
+        .side-qr-item img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+            border-radius: 4px;
+        }
+        .side-qr-item-qq img {
+            width: 180px;
+            height: 180px;
+        }
     </style>
 </head>
 <body>
+    <!-- 侧边悬窗：玩家群二维码 -->
+    <div class="side-qr-float" id="sideQrFloat">
+        <div class="side-qr-tab" id="sideQrTab">官方玩家群</div>
+        <div class="side-qr-panel">
+            <div class="side-qr-item side-qr-item-qq">
+                <h4>QQ 群</h4>
+                <img src="assets/QQ群二维码.jpg" alt="游戏 QQ 群二维码">
+            </div>
+            <div class="side-qr-item">
+                <h4>小红书群</h4>
+                <img src="assets/小红书群二维码.jpg" alt="游戏小红书群二维码">
+            </div>
+        </div>
+    </div>
+
     <!-- 导航栏 -->
     <nav class="navbar">
         <div class="nav-container">
@@ -813,5 +891,11 @@
     <footer>
         <p>&copy; 2026 天圆地方：HRES. 探索、协作、创造。</p>
     </footer>
+
+    <script>
+        document.getElementById('sideQrTab').addEventListener('click', function () {
+            document.getElementById('sideQrFloat').classList.toggle('open');
+        });
+    </script>
 </body>
 </html>

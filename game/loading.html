@@ -349,14 +349,14 @@
 							actualTotalSize = downloadedSize + total + remainingEstimatedSize;
 						}
 						const fileProgress = downloadedSize + loaded;
-						updateProgress(fileProgress, actualTotalSize, `正在下载 ${file.name}...`);
+						updateProgress(fileProgress, actualTotalSize, `正在更新游戏文件...`);
 					});
 
 					// 使用实际文件大小
 					fileActualSize = data.byteLength;
 
 					// 保存到 IndexedDB
-					updateProgress(downloadedSize + fileActualSize, actualTotalSize, `正在保存 ${file.name}...`);
+					updateProgress(downloadedSize + fileActualSize, actualTotalSize, `正在保存游戏文件...`);
 					await saveFileToDB(file.name, data);
 					downloadedSize += fileActualSize;
 					
