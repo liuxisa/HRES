@@ -1,0 +1,2062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heaven is Round, Earth is Square: HRES - Game Wiki</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #ffffff;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --highlight-color: #ffd700;
+            --text-dark: #ffffff;
+            --text-light: #b0b0b0;
+            --bg-light: #1a1a1a;
+            --bg-white: #000000;
+            --bg-card: #1a1a1a;
+            --border-color: #333333;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.5);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', '微软雅黑', 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+            color: var(--text-dark);
+            line-height: 1.7;
+            background-color: var(--bg-white);
+        }
+
+        strong {
+            font-weight: normal;
+            color: var(--highlight-color);
+        }
+
+        /* 导航栏 */
+        .navbar {
+            background: var(--bg-card);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* 顶部标签切换 */
+        .top-nav {
+            background: var(--bg-card);
+            box-shadow: var(--shadow);
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .back-home {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-home:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+            opacity: 0.9;
+        }
+
+        .tab-switcher {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-light);
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            background: var(--border-color);
+        }
+
+        .tab-btn.active {
+            background: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+
+        /* 容器 */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        /* 内容包装器 */
+        .content-wrapper {
+            display: flex;
+            gap: 2rem;
+        }
+
+        /* 侧边栏 */
+        .sidebar {
+            width: 280px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 2rem;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .sidebar h2 {
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-menu a:hover {
+            background: var(--bg-light);
+            color: var(--secondary-color);
+            transform: translateX(4px);
+        }
+
+        .nav-menu a.active {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        /* 主内容区 */
+        .main-content {
+            flex: 1;
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 3rem;
+            box-shadow: var(--shadow);
+            min-height: 600px;
+            border: 1px solid var(--border-color);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 3px solid var(--border-color);
+        }
+
+        .header h1 {
+            color: var(--text-dark);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        /* 系统Wiki样式 */
+        .section {
+            margin-bottom: 4rem;
+            scroll-margin-top: 100px;
+            display: none; /* 默认隐藏所有section */
+        }
+
+        .section.active {
+            display: block; /* 只显示激活的section */
+        }
+
+        .section h2 {
+            color: var(--text-dark);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .section h3 {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem;
+        }
+
+        .section h4 {
+            color: var(--text-dark);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 1.5rem 0 0.75rem;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        .section ul, .section ol {
+            margin: 1rem 0 1rem 2rem;
+            color: var(--text-dark);
+        }
+
+        .section li {
+            margin-bottom: 0.75rem;
+            line-height: 1.8;
+        }
+
+        .feature-box {
+            background: var(--bg-white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--secondary-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .feature-box h4 {
+            color: var(--secondary-color);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-card);
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        table th {
+            background: var(--secondary-color);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        table tr:last-child td {
+            border-bottom: none;
+        }
+
+        table tr:hover {
+            background: var(--bg-white);
+        }
+
+        /* 建筑表格样式 */
+        .building-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-card);
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .building-table th {
+            background: var(--secondary-color);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .building-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
+        }
+
+        .building-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .building-table tr:hover {
+            background: var(--bg-white);
+        }
+
+        .building-image {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            background: var(--bg-white);
+            border-radius: 8px;
+            padding: 4px;
+            border: 1px solid var(--border-color);
+        }
+
+        .building-name {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+        }
+
+        .building-info {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .building-materials {
+            color: var(--text-dark);
+        }
+
+        .building-materials ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+
+        .building-materials li {
+            margin-bottom: 0.25rem;
+        }
+
+        .tip-box {
+            background: var(--bg-white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            border-left: 5px solid var(--secondary-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .tip-box::before {
+            content: "💡 ";
+            font-size: 1.2em;
+        }
+
+        .warning-box {
+            background: var(--bg-white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            border-left: 5px solid var(--accent-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .warning-box::before {
+            content: "⚠️ ";
+            font-size: 1.2em;
+        }
+
+        code {
+            background: var(--bg-white);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: var(--accent-color);
+            font-size: 0.9em;
+        }
+
+        /* UGC Wiki 样式 */
+        .ugc-wiki {
+            display: none;
+        }
+
+        .ugc-wiki.active {
+            display: block;
+        }
+
+        /* 搜索栏 */
+        .search-bar {
+            margin-bottom: 2rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 2px solid var(--border-color);
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--bg-white);
+            color: var(--text-dark);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        /* 分类筛选 */
+        .category-filter {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+
+        .category-btn:hover {
+            background: var(--border-color);
+        }
+
+        .category-btn.active {
+            background: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+
+        /* 词条列表 */
+        .entry-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .entry-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .entry-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--secondary-color);
+        }
+
+        .entry-card h3 {
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .entry-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .entry-card .entry-meta {
+            color: var(--text-light);
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .entry-card .entry-type {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--secondary-color);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        /* 词条详情页 */
+        .entry-detail {
+            display: none;
+        }
+
+        .entry-detail.active {
+            display: block;
+        }
+
+        .entry-header {
+            border-bottom: 3px solid var(--border-color);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .entry-header h1 {
+            color: var(--text-dark);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .entry-header .entry-info {
+            color: var(--text-light);
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            font-size: 0.95rem;
+        }
+
+        .entry-content {
+            line-height: 1.8;
+            color: var(--text-dark);
+        }
+
+        .entry-content h2 {
+            color: var(--text-dark);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .entry-content h3 {
+            color: var(--secondary-color);
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 1.5rem 0 0.75rem;
+        }
+
+        .entry-actions {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--border-color);
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+            background: var(--secondary-color);
+        }
+
+        .btn-secondary {
+            background: var(--bg-light);
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border-color);
+        }
+
+        /* 编辑页面 */
+        .edit-form {
+            display: none;
+        }
+
+        .edit-form.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: var(--bg-white);
+            color: var(--text-dark);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .form-group textarea {
+            min-height: 300px;
+            resize: vertical;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* 空状态 */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-light);
+        }
+
+        .empty-state h2 {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .content-wrapper {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                position: relative;
+                top: 0;
+            }
+
+            .nav-menu {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .nav-menu li {
+                margin-bottom: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem 2rem;
+            }
+
+            .main-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .section h2 {
+                font-size: 1.5rem;
+            }
+
+            .entry-list {
+                grid-template-columns: 1fr;
+            }
+
+            .top-nav {
+                padding: 1rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index-en.html" class="logo">
+                <img src="assets/logo.png" alt="HRES Logo">
+                <span>Heaven is Round HRES</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index-en.html">Home</a></li>
+                <li><a href="wiki-en.html">Wiki</a></li>
+                <li><a href="wiki.html" class="lang-switch">中文</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- 顶部导航栏 -->
+        <div class="top-nav">
+            <a href="index-en.html" class="back-home">← Back to Home</a>
+            <div class="tab-switcher">
+                <button class="tab-btn active" onclick="switchTab('system')">System Wiki</button>
+                <button class="tab-btn" onclick="switchTab('ugc')">World Wiki</button>
+            </div>
+        </div>
+
+        <div class="content-wrapper">
+            <!-- 系统Wiki内容 -->
+            <div id="system-wiki" class="main-content" style="display: block;">
+                <div style="display: flex; gap: 2rem;">
+                    <nav class="sidebar">
+                        <h2>📚 Contents</h2>
+                        <ul class="nav-menu">
+                            <li><a href="#overview">Game Overview</a></li>
+                            <li><a href="#world-time">World & Time</a></li>
+                            <li><a href="#resource">Resources & Gathering</a></li>
+                            <li><a href="#industry">Industry & Production</a></li>
+                            <li><a href="#buildings">Building System</a></li>
+                            <li><a href="#town">Town System</a></li>
+                            <li><a href="#country">Nation System</a></li>
+                            <li><a href="#territory">Territory System</a></li>
+                            <li><a href="#company">Company System</a></li>
+                            <li><a href="#world-wiki">World Wiki</a></li>
+                        </ul>
+                    </nav>
+                    <div style="flex: 1;">
+                        <div class="header">
+                            <h1>Heaven is Round, Earth is Square: HRES — System Wiki</h1>
+                            <p>Game systems reference</p>
+                        </div>
+                        <div id="system-wiki-content">
+                            <!-- Game Overview -->
+                            <section id="overview" class="section active">
+                                <h2>🎮 Game Overview</h2>
+                                <p>
+                                    <em>Heaven is Round, Earth is Square</em> (HRES) is a free, open <strong>lightweight online game</strong>. Players explore, survive, and collaborate in a vast, persistent world, forming economies and societies and building a <strong>virtual civilization</strong> together.
+                                </p>
+                                <div class="feature-box">
+                                    <h4>Core Features</h4>
+                                    <ul>
+                                        <li>Large, continuous world on a single server—no instances; everyone shares one persistent world</li>
+                                        <li>Real economic simulation with no system intervention: trade and industry are driven by the market</li>
+                                        <li>Towns, nations, and other groups are created and run by players, not the system</li>
+                                        <li>Minimal rules: the system provides a light framework; order and institutions emerge from players</li>
+                                    </ul>
+                                </div>
+                            </section>
+
+                            <!-- World & Time -->
+                            <section id="world-time" class="section">
+                                <h2>🌍 World & Time</h2>
+                                
+                                <h3>World</h3>
+                                <p>
+                                    The HRES world is a <strong>continuous, vast</strong> flat virtual world—terrain, resources, players, buildings, industry, towns, and nations in one ecosystem. Players explore, build, and collaborate, from individual life to collective civilization.
+                                </p>
+
+                                <h3>Terrain</h3>
+                                <p>
+                                    The world has <strong>diverse terrain</strong>: <strong>ocean</strong>, <strong>continent</strong>, <strong>islands</strong>, <strong>lakes</strong>, <strong>rivers</strong>, <strong>mountains</strong>, etc.
+                                </p>
+                                <p>
+                                    On land there are <strong>ground types</strong>: <strong>grass</strong>, <strong>sand</strong>, <strong>snow</strong>, <strong>mud</strong>, <strong>rock</strong>, <strong>wetland</strong>, etc. Each affects movement speed, resources, and development. Plan exploration and construction accordingly.
+                                </p>
+
+                                <h3>Chunks</h3>
+                                <p>
+                                    The world is divided into <strong>chunks</strong>; each has an area of <strong>4096 m²</strong>. The concept comes from the Chinese “heaven is round, earth is square” view of the world. Each chunk is the unit for territory, building, and resources.
+                                </p>
+
+                                <h3>Time System</h3>
+                                <p>The game uses a unique calendar:</p>
+                                <ul>
+                                    <li><strong>Time flow</strong>: 1 game day = 12 real hours (2× real time)</li>
+                                    <li><strong>Calendar</strong>:
+                                        <ul>
+                                            <li>1 year = 4 months (Spring, Summer, Autumn, Winter)</li>
+                                            <li>1 month = 30 days</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>Display</strong>: "Tianyuan Era Year-Month-Day HH:MM"</li>
+                                </ul>
+                                <div class="tip-box">
+                                    Game start: Jan 1, 2026 00:00 (Beijing time) = Tianyuan Era Year 1, Spring Month, Day 1, 00:00
+                                </div>
+
+                                <h3>Daily Cycle</h3>
+                                <p>Settlement uses the calendar <strong>day</strong>. At the end of each day the system updates and resets:</p>
+                                <ul>
+                                    <li><strong>Stamina</strong>: Players who rest in a house recover full stamina at day’s end</li>
+                                    <li><strong>Work slots</strong>: Industry work counts reset daily; players can work again</li>
+                                    <li><strong>Other</strong>: All day-based mechanics are processed at day’s end</li>
+                                </ul>
+                                <div class="tip-box">
+                                    The daily cycle keeps the rhythm stable and gives a fresh start each day.
+                                </div>
+                            </section>
+
+                            <!-- Resources & Gathering -->
+                            <section id="resource" class="section">
+                                <h2>⛏️ Resources & Gathering</h2>
+                                
+                                <h3>Resource Distribution</h3>
+                                <p>Natural resources in the world include:</p>
+                                <ul>
+                                    <li>Trees</li>
+                                    <li>Stone</li>
+                                    <li>Iron ore</li>
+                                    <li>Copper ore</li>
+                                </ul>
+
+                                <h3>Resource Reference</h3>
+
+                                <table class="building-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 100px;">Image</th>
+                                            <th style="width: 150px;">Resource</th>
+                                            <th style="width: 120px;">Item</th>
+                                            <th style="width: 100px;">Gathers</th>
+                                            <th style="width: 100px;">Base stamina</th>
+                                            <th style="width: 120px;">Skill</th>
+                                            <th style="width: 150px;">Tools</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- 松树 -->
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Resources/trees/pine_tree_large_1.png" alt="松树（大）" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">松树（大）</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">木材</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">8次</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">75</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">伐木</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">石斧、铁斧</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Resources/trees/pine_tree_medium_1.png" alt="松树（中）" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">松树（中）</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">木材</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">5次</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">60</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">伐木</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">石斧、铁斧</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Resources/trees/pine_tree_small_1.png" alt="松树（小）" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">松树（小）</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">木材</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">3次</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">40</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">伐木</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">石斧、铁斧</div>
+                                            </td>
+                                        </tr>
+                                        <!-- 桦树 -->
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Resources/trees/birch_tree_large_1.png" alt="桦树（大）" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">桦树（大）</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">木材</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">8次</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">75</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">伐木</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">石斧、铁斧</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Resources/trees/birch_tree_medium_1.png" alt="桦树（中）" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">桦树（中）</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">木材</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">5次</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">60</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">伐木</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">石斧、铁斧</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Resources/trees/birch_tree_small_1.png" alt="桦树（小）" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">桦树（小）</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">木材</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">3次</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">40</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">伐木</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">石斧、铁斧</div>
+                                            </td>
+                                        </tr>
+                                        <!-- 石头 -->
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Resources/ores/stone_1.png" alt="石头" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">石头</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">石头</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">8次</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">50</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">石料采集</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">石镐、铁镐</div>
+                                            </td>
+                                        </tr>
+                                        <!-- 铁矿 -->
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Resources/ores/iron_ore_1.png" alt="铁矿" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">铁矿</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">铁矿石</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">12次</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">100</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">铁矿采集</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">石镐、铁镐</div>
+                                            </td>
+                                        </tr>
+                                        <!-- 铜矿 -->
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Resources/ores/copper_ore_1.png" alt="铜矿" class="building-image">
+                                            </td>
+                                            <td>
+                                                <div class="building-name">铜矿</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">铜矿石</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">12次</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">100</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">铜矿采集</div>
+                                            </td>
+                                            <td>
+                                                <div class="building-info">石镐、铁镐</div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <h3>Resource Rules</h3>
+                                <ul>
+                                    <li>Distribution is influenced by terrain; random but uneven</li>
+                                    <li>Resources regenerate: trees on a shorter cycle, ores on a longer one</li>
+                                </ul>
+
+                                <h3>Gathering</h3>
+                                <ul>
+                                    <li>Approach a resource; it highlights on hover; click to open the gathering UI</li>
+                                    <li>Spend stamina to gather and receive the corresponding output</li>
+                                    <li>Town residents can gather in town territory; non-residents follow town policy</li>
+                                </ul>
+                            </section>
+
+                            <!-- Industry & Production -->
+                            <section id="industry" class="section">
+                                <h2>🏭 Industry & Production</h2>
+                                
+                                <h3>Industry Types</h3>
+                                <p>Two types:</p>
+                                
+                                <div class="feature-box">
+                                    <h4>Production</h4>
+                                    <p>Materials → player labor → products</p>
+                                    <p><strong>Example</strong>: Blacksmith uses ore → makes tools</p>
+                                </div>
+
+                                <div class="feature-box">
+                                    <h4>Service</h4>
+                                    <p>Provide services → earn income</p>
+                                    <p><strong>Example</strong>: Inn, shop</p>
+                                </div>
+
+                                <h3>Work</h3>
+                                <ul>
+                                    <li>Players spend stamina to work and get paid immediately</li>
+                                    <li>Output goes to the industry’s storage</li>
+                                    <li>Industry size sets daily work slots; owner can set minimum stamina per work</li>
+                                </ul>
+
+                                <h3>Building Limit</h3>
+                                <p>Industry buildings can only be built in chunks within town territory.</p>
+                            </section>
+
+                            <!-- Building System -->
+                            <section id="buildings" class="section">
+                                <h2>🏗️ Building System</h2>
+                                <p>
+                                    Buildings fall into three categories: <strong>industry</strong>, <strong>public</strong>, and <strong>infrastructure</strong>.
+                                </p>
+
+                                <h3>🏭 Industry Buildings</h3>
+                                <p>Industry (Estate) buildings include production and service types and are the core of the economy. Production buildings offer jobs; players work for pay.</p>
+                                
+                                <table class="building-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 100px;">Image</th>
+                                            <th style="width: 150px;">Building</th>
+                                            <th>Description</th>
+                                            <th style="width: 200px;">Materials</th>
+                                            <th style="width: 200px;">Input/Output</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Buildings/Farmhouse/farmhouse_corn.png" alt="Corn Farm" class="building-image">
+                                            </td>
+                                            <td><div class="building-name">Corn Farm</div></td>
+                                            <td><div class="building-info">Production. Grows and harvests corn for food. Offers jobs.</div></td>
+                                            <td><div class="building-materials"><ul><li>Wood: 70</li><li>Stone: 30</li><li>Work: 1500</li></ul></div></td>
+                                            <td><div class="building-info">Input: none<br>Output: Corn</div></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Buildings/Stonemason/stonemason.png" alt="Stonemason" class="building-image">
+                                            </td>
+                                            <td><div class="building-name">Stonemason</div></td>
+                                            <td><div class="building-info">Production. Makes stone tools (axe, pick, hammer). Offers jobs.</div></td>
+                                            <td><div class="building-materials"><ul><li>Wood: 60</li><li>Stone: 40</li><li>Work: 1800</li></ul></div></td>
+                                            <td><div class="building-info">Input: Wood, Stone<br>Output: Stone axe, pick, hammer</div></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Buildings/Smeltery/smeltery.png" alt="Smeltery" class="building-image">
+                                            </td>
+                                            <td><div class="building-name">Smeltery</div></td>
+                                            <td><div class="building-info">Production. Smelts iron/copper ore into ingots. Offers jobs.</div></td>
+                                            <td><div class="building-materials"><ul><li>Wood: 80</li><li>Stone: 100</li><li>Work: 2500</li></ul></div></td>
+                                            <td><div class="building-info">Input: Iron ore, Copper ore<br>Output: Iron ingot, Copper ingot</div></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Buildings/Blacksmith/blacksmith.png" alt="Blacksmith" class="building-image">
+                                            </td>
+                                            <td><div class="building-name">Blacksmith</div></td>
+                                            <td><div class="building-info">Production. Makes iron tools (axe, hammer, pick). Offers jobs.</div></td>
+                                            <td><div class="building-materials"><ul><li>Wood: 100</li><li>Stone: 50</li><li>Work: 2000</li></ul></div></td>
+                                            <td><div class="building-info">Input: Wood, Iron ingot<br>Output: Iron axe, hammer, pick</div></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Buildings/Mint/mint.png" alt="Mint" class="building-image">
+                                            </td>
+                                            <td><div class="building-name">Mint</div></td>
+                                            <td><div class="building-info">Production. Mints copper coins. Offers jobs.</div></td>
+                                            <td><div class="building-materials"><ul><li>Wood: 50</li><li>Stone: 80</li><li>Work: 3000</li></ul></div></td>
+                                            <td><div class="building-info">Input: Wood, Copper ingot<br>Output: Copper coin</div></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Buildings/House/house_small.png" alt="House" class="building-image">
+                                            </td>
+                                            <td><div class="building-name">House</div></td>
+                                            <td><div class="building-info">Service. Residence for living or rent. Various sizes. No jobs.</div></td>
+                                            <td><div class="building-materials"><ul><li>Wood: 40-100</li><li>Stone: 20-80</li><li>Work: 800-2000</li></ul></div></td>
+                                            <td><div class="building-info">Function: Residence</div></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Buildings/Shop/shop.png" alt="Shop" class="building-image">
+                                            </td>
+                                            <td><div class="building-name">Shop</div></td>
+                                            <td><div class="building-info">Service. For owner to sell goods on a small scale. No jobs.</div></td>
+                                            <td><div class="building-materials"><ul><li>Wood: 120</li><li>Stone: 60</li><li>Work: 2500</li></ul></div></td>
+                                            <td><div class="building-info">Function: Retail</div></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Buildings/Storehouse/storehouse.png" alt="Storehouse" class="building-image">
+                                            </td>
+                                            <td><div class="building-name">Storehouse</div></td>
+                                            <td><div class="building-info">Service. Stores items and resources. No jobs.</div></td>
+                                            <td><div class="building-materials"><ul><li>Wood: 100</li><li>Stone: 80</li><li>Work: 2000</li></ul></div></td>
+                                            <td><div class="building-info">Function: Storage</div></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <h3>🏛️ Public Buildings</h3>
+                                <p>Public buildings provide town services and management.</p>
+
+                                <table class="building-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 100px;">Image</th>
+                                            <th style="width: 150px;">Building</th>
+                                            <th>Description</th>
+                                            <th style="width: 200px;">Materials</th>
+                                            <th style="width: 200px;">Effect</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Buildings/TownCenter/town_center.png" alt="Town Center" class="building-image">
+                                            </td>
+                                            <td><div class="building-name">Town Center</div></td>
+                                            <td><div class="building-info">Town core. Manage town, set policy, assign roles. Claims 9 chunks. Upgrades to City Center at 50 pop.</div></td>
+                                            <td><div class="building-materials"><ul><li>Wood: 300</li><li>Stone: 200</li><li>Work: 5000</li></ul></div></td>
+                                            <td><div class="building-info">Function: Town management, claim territory</div></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Buildings/TownCenter/city_center.png" alt="City Center" class="building-image">
+                                            </td>
+                                            <td><div class="building-name">City Center</div></td>
+                                            <td><div class="building-info">City core. Upgraded from Town Center. Advanced management. Claims 9 chunks. Cannot build directly.</div></td>
+                                            <td><div class="building-materials"><ul><li>Upgrade: pop ≥ 50 from Town Center</li></ul></div></td>
+                                            <td><div class="building-info">Function: City management, claim territory</div></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Buildings/Shop/shop.png" alt="Market" class="building-image">
+                                            </td>
+                                            <td><div class="building-name">Market</div></td>
+                                            <td><div class="building-info">Public. Large-scale trading for residents. Center of commerce.</div></td>
+                                            <td><div class="building-materials"><ul><li>Wood: 120</li><li>Stone: 60</li><li>Work: 2500</li></ul></div></td>
+                                            <td><div class="building-info">Function: Trading platform</div></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <img src="assets/Buildings/Outpost/outpost.png" alt="Outpost" class="building-image">
+                                            </td>
+                                            <td><div class="building-name">Outpost</div></td>
+                                            <td><div class="building-info">Expands town territory. Requires regular maintenance.</div></td>
+                                            <td><div class="building-materials"><ul><li>Wood: 60</li><li>Stone: 30</li><li>Work: 1500</li></ul></div></td>
+                                            <td><div class="building-info">Function: Claim territory</div></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <h3>🛤️ Infrastructure</h3>
+                                <p>Infrastructure (roads, bridges) is not yet available.</p>
+
+                                <table class="building-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 100px;">Image</th>
+                                            <th style="width: 150px;">Building</th>
+                                            <th>Description</th>
+                                            <th style="width: 200px;">Materials</th>
+                                            <th style="width: 200px;">Effect</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Buildings/placeholder.png" alt="Dirt road" class="building-image"></td>
+                                            <td><div class="building-name">Dirt road</div></td>
+                                            <td><div class="building-info">Basic road. Not yet available.</div></td>
+                                            <td><div class="building-materials"><ul><li>TBD</li></ul></div></td>
+                                            <td><div class="building-info">Function: Movement speed</div></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Buildings/placeholder.png" alt="Stone road" class="building-image"></td>
+                                            <td><div class="building-name">Stone road</div></td>
+                                            <td><div class="building-info">Advanced road. Not yet available.</div></td>
+                                            <td><div class="building-materials"><ul><li>TBD</li></ul></div></td>
+                                            <td><div class="building-info">Function: Movement speed</div></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Buildings/placeholder.png" alt="Wood bridge" class="building-image"></td>
+                                            <td><div class="building-name">Wood bridge</div></td>
+                                            <td><div class="building-info">Basic bridge. Not yet available.</div></td>
+                                            <td><div class="building-materials"><ul><li>TBD</li></ul></div></td>
+                                            <td><div class="building-info">Function: Crossing</div></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Buildings/placeholder.png" alt="Stone bridge" class="building-image"></td>
+                                            <td><div class="building-name">Stone bridge</div></td>
+                                            <td><div class="building-info">Advanced bridge. Not yet available.</div></td>
+                                            <td><div class="building-materials"><ul><li>TBD</li></ul></div></td>
+                                            <td><div class="building-info">Function: Crossing</div></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="tip-box">
+                                    <strong>In development</strong>: Roads (dirt, stone) and bridges (wood, stone) will be added in a later version.
+                                </div>
+
+                                <div class="tip-box">
+                                    <strong>Building rules</strong>: All buildings must be in town territory. Non-residents pay extra (by town policy). Buildings need regular maintenance or they will decay.
+                                </div>
+                            </section>
+
+                            <!-- Town System -->
+                            <section id="town" class="section">
+                                <h2>🏘️ Town System</h2>
+                                
+                                <h3>Town Tiers</h3>
+                                <p>Two tiers:</p>
+                                
+                                <div class="feature-box">
+                                    <h4>
+                                        <img src="assets/Buildings/TownCenter/town_center.png" alt="Town Center" style="width: 40px; height: 40px; vertical-align: middle; margin-right: 10px; object-fit: contain;">
+                                        Town
+                                    </h4>
+                                    <ul>
+                                        <li>Smaller settlement with a <strong>Town Center</strong></li>
+                                        <li>Optional name suffixes (e.g. Town, Village)</li>
+                                    </ul>
+                                </div>
+
+                                <div class="feature-box">
+                                    <h4>
+                                        <img src="assets/Buildings/TownCenter/city_center.png" alt="City Center" style="width: 40px; height: 40px; vertical-align: middle; margin-right: 10px; object-fit: contain;">
+                                        City
+                                    </h4>
+                                    <ul>
+                                        <li>At 50 population, upgrade Town Center to <strong>City Center</strong>; town becomes a city</li>
+                                        <li>Optional name suffixes (e.g. City, Capital)</li>
+                                    </ul>
+                                </div>
+
+                                <div class="tip-box">
+                                    Suffixes are cosmetic; no stat difference. Players choose by flavor and culture.
+                                </div>
+
+                                <h3>Management</h3>
+                                <ul>
+                                    <li>Lord can grant residents custom titles and roles (e.g. Guard, Chief Architect).</li>
+                                    <li>Towns are the core for residence, companies, and industry; residents pay town taxes.</li>
+                                    <li>Towns can set immigration policy for outsiders.</li>
+                                </ul>
+
+                            </section>
+
+                            <!-- Nation System -->
+                            <section id="country" class="section">
+                                <h2>👑 Nation System</h2>
+                                
+                                
+                                <h3>Government Types</h3>
+
+                                <div class="feature-box">
+                                    <h4>👑 Monarchy</h4>
+                                    <ul>
+                                        <li>Leader is the founding player; succession by <strong>abdication</strong> to a chosen successor</li>
+                                        <li>No term limit</li>
+                                        <li>Leader has full decision-making power</li>
+                                    </ul>
+                                </div>
+
+                                <div class="feature-box">
+                                    <h4>🏛 Republic (Not Yet Available)</h4>
+                                    <ul>
+                                        <li>Citizens elect representatives who vote for the head of state</li>
+                                        <li>Limited term (1 or 2 months in-game)</li>
+                                        <li>Leader handles routine decisions; major decisions require parliament</li>
+                                        <li><strong>Requirement</strong>: at least 1 city</li>
+                                    </ul>
+                                </div>
+
+                                <div class="warning-box">
+                                    Government type does not give stat bonuses; it only affects how governance and interaction work.
+                                </div>
+
+                                <h3>State Style & Ruler Title</h3>
+                                <p>Town count, tier, and population determine <strong>state style</strong> and <strong>ruler title</strong>. Style can change through reform. The style appears as a suffix (e.g. Khanate, Republic).</p>
+
+                                <h4>Monarchy styles</h4>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Style</th>
+                                            <th>Towns</th>
+                                            <th>Population</th>
+                                            <th>Ruler title</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>Tribe</td><td>1 town</td><td>1</td><td>Chief</td></tr>
+                                        <tr><td>Stronghold</td><td>1 town</td><td>1</td><td>Chief</td></tr>
+                                        <tr><td>Tribal confederation</td><td>2 towns</td><td>50</td><td>Chief / High Chief</td></tr>
+                                        <tr><td>Khanate</td><td>3 towns</td><td>100</td><td>Khan</td></tr>
+                                        <tr><td>Duchy / Principality</td><td>1 city</td><td>50</td><td>Duke / Prince</td></tr>
+                                        <tr><td>Kingdom</td><td>3 cities</td><td>150</td><td>King</td></tr>
+                                        <tr><td>Empire</td><td>5 cities</td><td>250</td><td>Emperor</td></tr>
+                                    </tbody>
+                                </table>
+
+                                <h4>Republic styles</h4>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Style</th>
+                                            <th>Cities</th>
+                                            <th>Population</th>
+                                            <th>Ruler title</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>City-state</td><td>1 city</td><td>1</td><td>Consul</td></tr>
+                                        <tr><td>Republic</td><td>2 cities</td><td>50</td><td>President</td></tr>
+                                        <tr><td>Federation</td><td>5 cities</td><td>150</td><td>President</td></tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="tip-box">
+                                    Different styles in the same government type give <strong>no stat bonus</strong>; only names differ. You can stay at your current style.
+                                </div>
+
+                                <h3>Founding a Nation</h3>
+                                <p>When a player builds the first <strong>Town Center</strong> in <strong>unclaimed land</strong>, the system automatically creates a <strong>monarchy</strong>.</p>
+                                <p>The settlement is a <strong>town</strong>; the player can choose from two initial styles:</p>
+                                <table>
+                                    <thead>
+                                        <tr><th>Style</th><th>Requirement</th><th>Ruler title</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>Tribe</td><td>1 town + 1 pop</td><td>Chief</td></tr>
+                                        <tr><td>Stronghold</td><td>1 town + 1 pop</td><td>Chief</td></tr>
+                                    </tbody>
+                                </table>
+
+                                <h3>Government Reform</h3>
+                                <p>At a certain size, players can <strong>change government</strong>:</p>
+                                <ul>
+                                    <li><strong>Monarchy → Republic</strong>: at least 1 city; initiated by the leader (not yet available).</li>
+                                    <li><strong>Republic → Monarchy</strong>: triggered by unrest/coup or parliament vote (not yet available).</li>
+                                </ul>
+                            </section>
+
+                            <!-- Territory System -->
+                            <section id="territory" class="section">
+                                <h2>🗺️ Territory System</h2>
+                                
+                                <h3>Chunks</h3>
+                                <p>
+                                    In the beta, the world is <strong>200 × 100 chunks</strong>; each chunk is 4096 m². Each chunk is the unit for territory, building, and resources.
+                                </p>
+
+                                <h3>Base Territory</h3>
+                                <ul>
+                                    <li>Town/City center automatically claims the surrounding ring (9 chunks)</li>
+                                    <li>This is the town’s base territory; no extra building required</li>
+                                    <li>Centers cannot be built next to another town’s territory (conflict)</li>
+                                </ul>
+
+                                <h3>Expansion</h3>
+                                <ul>
+                                    <li>Use expansion buildings to claim adjacent territory</li>
+                                    <li>Expansion buildings have a “range” and can claim multiple chunks</li>
+                                    <li>Ranges can overlap for efficiency</li>
+                                    <li>New territory must be adjacent to existing territory</li>
+                                </ul>
+
+                                <h3>Expansion Buildings</h3>
+                                
+                                <h4>Town / City Center</h4>
+                                <ul>
+                                    <li><strong>Role</strong>: Core building; base territory expansion</li>
+                                    <li><strong>Range</strong>: Its chunk plus 8 adjacent (9 chunks total)</li>
+                                </ul>
+
+                                <h4>Outpost</h4>
+                                <ul>
+                                    <li><strong>Role</strong>: Territory expansion</li>
+                                    <li><strong>Range</strong>: Its chunk only (1)</li>
+                                </ul>
+
+                                <h3>Who Can Build</h3>
+                                <ul>
+                                    <li><strong>Town/City center</strong>: Anyone can build in unclaimed land; builder pays</li>
+                                    <li><strong>Outpost</strong>: Any town resident can build; builder pays; claimed territory goes to the town</li>
+                                    <li>No permit needed; basic conditions must be met</li>
+                                </ul>
+
+                                <h3>Town Expansion Subsidy</h3>
+                                <p>Lord can set:</p>
+                                <ul>
+                                    <li><strong>Build subsidy</strong>: Financial support for building outposts</li>
+                                    <li><strong>Maintenance subsidy</strong>: Partial support for outpost maintenance</li>
+                                </ul>
+
+                                <h3>Territory Effects</h3>
+                                <ul>
+                                    <li><strong>Industry</strong>: Industry buildings only in town territory</li>
+                                    <li><strong>Gathering</strong>: Residents can gather in town territory; non-residents follow town policy</li>
+                                </ul>
+
+                                <h3>Territory Conflict</h3>
+                                <ul>
+                                    <li>Not yet available</li>
+                                </ul>
+                            </section>
+
+                            <!-- 公司系统 -->
+                            <section id="company" class="section">
+                                <h2>🏢 Company System (Not Yet Available)</h2>
+                                
+                                <h3>Forming a Company</h3>
+                                <p>Players can form companies to manage multiple industries.</p>
+
+                                <h3>Ownership & Income</h3>
+                                <ul>
+                                    <li>A company can be owned by one player or multiple shareholders.</li>
+                                    <li>Output belongs to the company; shareholders share profits.</li>
+                                </ul>
+
+                            </section>
+
+                            <!-- 世界 Wiki -->
+                            <section id="world-wiki" class="section">
+                                <h2>📚 World Wiki</h2>
+                                
+                                <p>
+                                    World Wiki is HRES’s <strong>player-built knowledge base</strong>—like a wiki for this virtual world. <strong>Every player can edit</strong>: create, edit, and improve entries and write the world’s encyclopedia together.
+                                </p>
+
+                                <h3>What is World Wiki?</h3>
+                                <p>
+                                    A <strong>player-driven knowledge base</strong> for <strong>player-created content</strong>: <strong>nations</strong>, <strong>towns</strong>, <strong>companies</strong>, <strong>historical events</strong>, and <strong>players</strong> who left their mark. Each entry is part of the world’s shared history.
+                                </p>
+
+                                <h3>Features</h3>
+                                <div class="feature-box">
+                                    <h4>Free Editing</h4>
+                                    <p>Any player can create, edit, and improve entries.</p>
+                                </div>
+
+                                <div class="feature-box">
+                                    <h4>Player Content</h4>
+                                    <p>Entries are about what players create in-game: nations, towns, companies, events—real stories from the world.</p>
+                                </div>
+
+                                <div class="feature-box">
+                                    <h4>Collaboration</h4>
+                                    <p>Multiple players can work on the same entry for a fuller, more accurate record.</p>
+                                </div>
+
+                                <h3>What You Can Do</h3>
+                                <ul>
+                                    <li><strong>Create entries</strong>: Document your nation or town—founding, growth, key events, history</li>
+                                    <li><strong>Edit and improve</strong>: Collaborate with others, fill gaps, fix errors</li>
+                                    <li><strong>Explore</strong>: Read other players’ content and stories</li>
+                                    <li><strong>Witness history</strong>: A living, player-written history of the world</li>
+                                </ul>
+
+                                <h3>Entry Types</h3>
+                                <p>Supported types:</p>
+                                <ul>
+                                    <li><strong>Nation</strong>: founding, government, style, key events</li>
+                                    <li><strong>Town</strong>: founding, development, buildings, population, events</li>
+                                    <li><strong>Company</strong>: founding, business, shareholders, events</li>
+                                    <li><strong>Historical event</strong>: founding, wars, major trades, etc.</li>
+                                    <li><strong>Player</strong>: players and their contributions</li>
+                                </ul>
+
+                                <div class="tip-box">
+                                    <strong>🎯 Get started</strong>: Click the "World Wiki" tab, use the search bar, or click "Create new entry" to tell your world’s story.
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- UGC Wiki内容 -->
+            <div id="ugc-wiki" class="main-content ugc-wiki">
+                <!-- UGC Wiki首页 -->
+                <div id="ugc-home" class="ugc-page active">
+                    <div class="header">
+                        <h1>World Wiki</h1>
+                        <p>Player-built encyclopedia of the HRES world</p>
+                    </div>
+
+                    <div class="feature-box" style="margin: 2rem 0; padding: 2rem; background: var(--card-bg); border-radius: 8px; border: 1px solid var(--border-color);">
+                        <h2 style="margin-top: 0; color: var(--accent-color);">📚 What is World Wiki?</h2>
+                        <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">
+                            World Wiki is a <strong>player-driven knowledge base</strong> for the HRES world. <strong>Every player can edit</strong>—create, edit, and improve entries together.
+                        </p>
+                        <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">
+                            Entries are <strong>player-created content</strong>: <strong>nations</strong>, <strong>towns</strong>, <strong>companies</strong>, <strong>historical events</strong>, and <strong>players</strong>. Each entry is part of the world’s shared history.
+                        </p>
+                        <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 0;">
+                            <strong>You can:</strong>
+                        </p>
+                        <ul style="font-size: 1.05rem; line-height: 1.8; margin-top: 1rem;">
+                            <li>Create entries for your nation or town—founding, growth, key events</li>
+                            <li>Collaborate with others to improve entries</li>
+                            <li>Explore other players’ content and stories</li>
+                            <li>Witness a living, player-written history</li>
+                        </ul>
+                        <div class="tip-box" style="margin-top: 1.5rem;">
+                            <strong>🎯 Get started</strong>: Use the search bar or click "Create new entry" to tell your world’s story.
+                        </div>
+                    </div>
+
+                    <div class="search-bar">
+                        <input type="text" class="search-input" id="search-input" placeholder="Search entries..." onkeyup="handleSearch(event)">
+                    </div>
+
+                    <div class="category-filter">
+                        <button class="category-btn active" onclick="filterCategory('all')">All</button>
+                        <button class="category-btn" onclick="filterCategory('country')">Nation</button>
+                        <button class="category-btn" onclick="filterCategory('town')">Town</button>
+                        <button class="category-btn" onclick="filterCategory('player')">Player</button>
+                        <button class="category-btn" onclick="filterCategory('company')">Company</button>
+                        <button class="category-btn" onclick="filterCategory('event')">Event</button>
+                    </div>
+
+                    <!-- 词条列表 -->
+                    <div id="entry-list-container">
+                        <div class="entry-list" id="entry-list"></div>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 3rem;">
+                        <button class="btn btn-primary" onclick="showCreateForm()">+ Create new entry</button>
+                    </div>
+                </div>
+
+                <div id="ugc-detail" class="ugc-page entry-detail">
+                    <div class="entry-header">
+                        <h1 id="detail-title"></h1>
+                        <div class="entry-info">
+                            <span id="detail-type"></span>
+                            <span>Creator: <span id="detail-creator"></span></span>
+                            <span>Last editor: <span id="detail-editor"></span></span>
+                            <span>Updated: <span id="detail-updated"></span></span>
+                        </div>
+                    </div>
+                    <div class="entry-content" id="detail-content"></div>
+                    <div class="entry-actions">
+                        <button class="btn btn-primary" onclick="editEntry()">Edit entry</button>
+                        <button class="btn btn-secondary" onclick="backToHome()">Back to list</button>
+                    </div>
+                </div>
+
+                <div id="ugc-edit" class="ugc-page edit-form">
+                    <div class="header">
+                        <h1 id="edit-title">Create new entry</h1>
+                    </div>
+                    <form id="entry-form" onsubmit="saveEntry(event)">
+                        <div class="form-group">
+                            <label>Entry title *</label>
+                            <input type="text" id="form-title" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Entry type *</label>
+                            <select id="form-type" required>
+                                <option value="">Select type</option>
+                                <option value="country">Nation</option>
+                                <option value="town">Town</option>
+                                <option value="player">Player</option>
+                                <option value="company">Company</option>
+                                <option value="event">Event</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Entry content *</label>
+                            <textarea id="form-content" required placeholder="Write entry content in Markdown..."></textarea>
+                            <small style="color: var(--text-light); margin-top: 0.5rem; display: block;">
+                                Supports Markdown: **bold**, *italic*, # heading, - list
+                            </small>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-secondary" onclick="cancelEdit()">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="wiki-data.js"></script>
+    <script>
+        // 标签页切换
+        function switchTab(tab) {
+            const systemBtn = document.querySelector('.tab-btn:first-child');
+            const ugcBtn = document.querySelector('.tab-btn:last-child');
+            const systemWiki = document.getElementById('system-wiki');
+            const ugcWiki = document.getElementById('ugc-wiki');
+
+            if (tab === 'system') {
+                systemBtn.classList.add('active');
+                ugcBtn.classList.remove('active');
+                systemWiki.style.display = 'block';
+                ugcWiki.classList.remove('active');
+                loadSystemWiki();
+            } else {
+                systemBtn.classList.remove('active');
+                ugcBtn.classList.add('active');
+                systemWiki.style.display = 'none';
+                ugcWiki.classList.add('active');
+                loadUGCWiki();
+            }
+        }
+
+        // 加载系统Wiki内容（初始化导航）
+        function loadSystemWiki() {
+            initSystemWikiNav();
+        }
+
+        // 初始化系统Wiki导航
+        function initSystemWikiNav() {
+            const sections = document.querySelectorAll('#system-wiki .section');
+            const navLinks = document.querySelectorAll('#system-wiki .nav-menu a');
+            
+            if (sections.length === 0) return;
+            
+            // 检查URL hash，如果有则跳转到对应section
+            const hash = window.location.hash;
+            if (hash) {
+                const targetSection = document.querySelector(hash);
+                if (targetSection && targetSection.classList.contains('section')) {
+                    // 隐藏所有section
+                    sections.forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    // 移除所有导航链接的active状态
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    // 显示目标section
+                    targetSection.classList.add('active');
+                    // 激活对应的导航链接
+                    const targetLink = document.querySelector(`#system-wiki .nav-menu a[href="${hash}"]`);
+                    if (targetLink) {
+                        targetLink.classList.add('active');
+                    }
+                    // 滚动到顶部
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                    return;
+                }
+            }
+            
+            // 默认显示第一个section（游戏概览）
+            if (sections.length > 0 && !document.querySelector('#system-wiki .section.active')) {
+                sections[0].classList.add('active');
+                navLinks[0].classList.add('active');
+            }
+            
+            // 点击导航链接时切换section
+            navLinks.forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const href = this.getAttribute('href');
+                    const targetId = href.substring(1); // 移除 # 号
+                    const targetSection = document.querySelector(href);
+                    
+                    if (targetSection) {
+                        // 隐藏所有section
+                        sections.forEach(section => {
+                            section.classList.remove('active');
+                        });
+                        
+                        // 移除所有导航链接的active状态
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                        });
+                        
+                        // 显示目标section
+                        targetSection.classList.add('active');
+                        this.classList.add('active');
+                        
+                        // 滚动到顶部（因为现在只显示一个section）
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        // UGC Wiki相关函数
+        let currentCategory = 'all';
+        let currentEntryId = null;
+
+        // 初始化UGC Wiki
+        function loadUGCWiki() {
+            renderEntryList();
+        }
+
+        // 渲染词条列表
+        function renderEntryList(filteredEntries = null) {
+            const container = document.getElementById('entry-list');
+            const entries = filteredEntries || wikiData.getEntries(currentCategory);
+            
+            if (entries.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h2>No entries yet</h2>
+                        <p>No ${currentCategory === 'all' ? '' : getCategoryName(currentCategory) + ' '}entries yet. Create the first one!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = entries.map(entry => `
+                <div class="entry-card" onclick="viewEntry('${entry.id}')">
+                    <span class="entry-type">${getCategoryName(entry.type)}</span>
+                    <h3>${entry.title}</h3>
+                    <p>${entry.content.substring(0, 100)}${entry.content.length > 100 ? '...' : ''}</p>
+                    <div class="entry-meta">
+                        Creator: ${entry.creator} | Updated: ${formatDate(entry.updatedAt)}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 查看词条详情
+        function viewEntry(id) {
+            const entry = wikiData.getEntry(id);
+            if (!entry) return;
+
+            currentEntryId = id;
+            document.getElementById('detail-title').textContent = entry.title;
+            document.getElementById('detail-type').textContent = getCategoryName(entry.type);
+            document.getElementById('detail-creator').textContent = entry.creator;
+            document.getElementById('detail-editor').textContent = entry.lastEditor || entry.creator;
+            document.getElementById('detail-updated').textContent = formatDate(entry.updatedAt);
+            document.getElementById('detail-content').innerHTML = markdownToHTML(entry.content);
+
+            showPage('ugc-detail');
+        }
+
+        // 编辑词条
+        function editEntry() {
+            if (!currentEntryId) return;
+            const entry = wikiData.getEntry(currentEntryId);
+            if (!entry) return;
+
+            document.getElementById('edit-title').textContent = 'Edit entry';
+            document.getElementById('form-title').value = entry.title;
+            document.getElementById('form-type').value = entry.type;
+            document.getElementById('form-content').value = entry.content;
+
+            showPage('ugc-edit');
+        }
+
+        // 显示创建表单
+        function showCreateForm() {
+            currentEntryId = null;
+            document.getElementById('edit-title').textContent = 'Create new entry';
+            document.getElementById('entry-form').reset();
+            showPage('ugc-edit');
+        }
+
+        // 保存词条
+        function saveEntry(event) {
+            event.preventDefault();
+            const title = document.getElementById('form-title').value;
+            const type = document.getElementById('form-type').value;
+            const content = document.getElementById('form-content').value;
+
+            if (currentEntryId) {
+                wikiData.updateEntry(currentEntryId, { title, type, content });
+            } else {
+                wikiData.createEntry({ title, type, content, creator: '当前用户' });
+            }
+
+            backToHome();
+        }
+
+        // 取消编辑
+        function cancelEdit() {
+            backToHome();
+        }
+
+        // 返回首页
+        function backToHome() {
+            showPage('ugc-home');
+            renderEntryList();
+        }
+
+        // 显示页面
+        function showPage(pageId) {
+            document.querySelectorAll('.ugc-page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        // 分类筛选
+        function filterCategory(category) {
+            currentCategory = category;
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            renderEntryList();
+        }
+
+        // 搜索
+        function handleSearch(event) {
+            if (event.key === 'Enter' || event.target.value === '') {
+                const query = event.target.value.toLowerCase();
+                const entries = wikiData.searchEntries(query);
+                renderEntryList(entries);
+            }
+        }
+
+        // 工具函数
+        function getCategoryName(type) {
+            const names = {
+                'country': 'Nation',
+                'town': 'Town',
+                'player': 'Player',
+                'company': 'Company',
+                'event': 'Event'
+            };
+            return names[type] || type;
+        }
+
+        function formatDate(timestamp) {
+            const date = new Date(timestamp);
+            return date.toLocaleDateString('en-US') + ' ' + date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function markdownToHTML(markdown) {
+            return markdown
+                .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.+?)\*/g, '<em>$1</em>')
+                .replace(/^# (.+)$/gm, '<h2>$1</h2>')
+                .replace(/^## (.+)$/gm, '<h3>$1</h3>')
+                .replace(/^### (.+)$/gm, '<h4>$1</h4>')
+                .replace(/^- (.+)$/gm, '<li>$1</li>')
+                .replace(/\n/g, '<br>');
+        }
+
+        // 初始化
+        window.addEventListener('DOMContentLoaded', () => {
+            // 如果有hash，确保切换到系统Wiki标签
+            if (window.location.hash) {
+                switchTab('system');
+            }
+            loadSystemWiki();
+        });
+        
+        window.addEventListener('load', () => {
+            if (document.getElementById('system-wiki').style.display !== 'none') {
+                loadSystemWiki();
+            }
+            // 处理hash变化
+            if (window.location.hash) {
+                const hash = window.location.hash;
+                const targetSection = document.querySelector(hash);
+                if (targetSection && targetSection.classList.contains('section')) {
+                    switchTab('system');
+                    setTimeout(() => {
+                        loadSystemWiki();
+                    }, 100);
+                }
+            }
+        });
+        
+        // 监听hash变化
+        window.addEventListener('hashchange', () => {
+            if (window.location.hash) {
+                switchTab('system');
+                setTimeout(() => {
+                    loadSystemWiki();
+                }, 100);
+            }
+        });
+    </script>
+</body>
+</html>
