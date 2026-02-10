@@ -1,2 +1,4 @@
 game/index.pck
 game/index.wasm
+itch_game/*
+hres_game.zip
