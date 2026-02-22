@@ -809,7 +809,7 @@
                             <li><a href="#overview">游戏概览</a></li>
                             <li><a href="#world-time">世界与时间</a></li>
                             <li><a href="#resource">资源与采集</a></li>
-                            <li><a href="#industry">产业与生产</a></li>
+                            <li><a href="#items">物品系统</a></li>
                             <li><a href="#buildings">建筑系统</a></li>
                             <li><a href="#town">城镇系统</a></li>
                             <li><a href="#country">国家系统</a></li>
@@ -1158,34 +1158,159 @@
                                 </ul>
                             </section>
 
-                            <!-- 产业与生产系统 -->
-                            <section id="industry" class="section">
-                                <h2>🏭 产业与生产</h2>
-                                
-                                <h3>产业分类</h3>
-                                <p>产业分为两类：</p>
-                                
-                                <div class="feature-box">
-                                    <h4>生产型产业</h4>
-                                    <p>消耗原料 → 玩家劳动 → 产出产品</p>
-                                    <p><strong>示例</strong>：铁匠铺消耗矿石 → 制造工具</p>
-                                </div>
+                            <!-- 物品系统 -->
+                            <section id="items" class="section">
+                                <h2>📦 物品系统</h2>
+                                <p>以下为游戏中部分物品的详情，按类型分为材料、消耗品、工具、文档四类。</p>
 
-                                <div class="feature-box">
-                                    <h4>服务型产业</h4>
-                                    <p>提供服务 → 获得收益</p>
-                                    <p><strong>示例</strong>：旅馆、店铺</p>
-                                </div>
+                                <h3>材料</h3>
+                                <table class="building-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 60px;">图标</th>
+                                            <th style="width: 100px;">名称</th>
+                                            <th>描述</th>
+                                            <th style="width: 200px;">制作场所+原料</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Items/wood.png" alt="木材" class="building-image" style="max-width: 48px;"></td>
+                                            <td>木材</td>
+                                            <td>基础建筑材料，可用于建造房屋或制作工具。</td>
+                                            <td>采集（伐木）</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Items/stone.png" alt="石头" class="building-image" style="max-width: 48px;"></td>
+                                            <td>石头</td>
+                                            <td>常见地形资源，适用于铺路、建造等用途。</td>
+                                            <td>采集（采矿）</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Items/iron_ore.png" alt="铁矿石" class="building-image" style="max-width: 48px;"></td>
+                                            <td>铁矿石</td>
+                                            <td>富含铁元素的矿石，可用于冶炼铁锭或制作工具。</td>
+                                            <td>采集（采矿）</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Items/copper_ore.png" alt="铜矿石" class="building-image" style="max-width: 48px;"></td>
+                                            <td>铜矿石</td>
+                                            <td>富含铜元素的矿石，可用于冶炼铜锭或制作工具。</td>
+                                            <td>采集（采矿）</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Items/copper_ingot.png" alt="铜锭" class="building-image" style="max-width: 48px;"></td>
+                                            <td>铜锭</td>
+                                            <td>炼制后的铜锭，可用于工具制作或交易。</td>
+                                            <td>冶炼坊：铜矿石×2 + 产能 100</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Items/iron_ingot.png" alt="铁锭" class="building-image" style="max-width: 48px;"></td>
+                                            <td>铁锭</td>
+                                            <td>炼制后的铁锭，可用于工具制作或交易。</td>
+                                            <td>冶炼坊：铁矿石×2 + 产能 100</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
 
-                                <h3>工作机制</h3>
-                                <ul>
-                                    <li>玩家可以投入精力在产业中工作，立即获得报酬</li>
-                                    <li>产出进入产业仓库</li>
-                                    <li>产业规模决定了每日可工作次数，经营者可限制玩家单次劳动的最低精力消耗</li>
-                                </ul>
+                                <h3>消耗品</h3>
+                                <table class="building-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 60px;">图标</th>
+                                            <th style="width: 100px;">名称</th>
+                                            <th>描述</th>
+                                            <th style="width: 140px;">效果</th>
+                                            <th style="width: 200px;">制作场所+原料</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Items/corn.png" alt="玉米" class="building-image" style="max-width: 48px;"></td>
+                                            <td>玉米</td>
+                                            <td>常见作物，可直接食用，能恢复饱腹值。右键单击使用。</td>
+                                            <td>饱腹值 +100</td>
+                                            <td>玉米农场：产能 80</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
 
-                                <h3>建造限制</h3>
-                                <p>只有城镇领土内的方域（chunk）才能建造产业建筑。</p>
+                                <h3>工具</h3>
+                                <table class="building-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 60px;">图标</th>
+                                            <th style="width: 100px;">名称</th>
+                                            <th>描述</th>
+                                            <th style="width: 160px;">效果</th>
+                                            <th style="width: 200px;">制作场所+原料</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Items/stone_axe.png" alt="石斧" class="building-image" style="max-width: 48px;"></td>
+                                            <td>石斧</td>
+                                            <td>基础伐木工具，虽然效率不高但容易制作。</td>
+                                            <td>减少伐木精力消耗 50%</td>
+                                            <td>石匠铺：木材×5 + 石头×3 + 产能 200</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Items/stone_pickaxe.png" alt="石镐" class="building-image" style="max-width: 48px;"></td>
+                                            <td>石镐</td>
+                                            <td>基础采矿工具，适合采集软质矿物。</td>
+                                            <td>减少采矿精力消耗 50%</td>
+                                            <td>石匠铺：木材×5 + 石头×3 + 产能 200</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Items/stone_hammer.png" alt="石锤" class="building-image" style="max-width: 48px;"></td>
+                                            <td>石锤</td>
+                                            <td>基础建筑工具，适合简单建造工作。</td>
+                                            <td>建造效率 +50%</td>
+                                            <td>石匠铺：木材×5 + 石头×3 + 产能 200</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Items/iron_axe.png" alt="铁斧" class="building-image" style="max-width: 48px;"></td>
+                                            <td>铁斧</td>
+                                            <td>用于砍伐树木的高效工具，结实耐用。</td>
+                                            <td>减少伐木精力消耗 75%</td>
+                                            <td>铁匠铺：木材×5 + 铁锭×3 + 产能 300</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Items/iron_hammer.png" alt="铁锤" class="building-image" style="max-width: 48px;"></td>
+                                            <td>铁锤</td>
+                                            <td>用于建筑施工的基础工具。</td>
+                                            <td>建造效率 +50%</td>
+                                            <td>铁匠铺：木材×5 + 铁锭×3 + 产能 300</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Items/iron_pickaxe.png" alt="铁镐" class="building-image" style="max-width: 48px;"></td>
+                                            <td>铁镐</td>
+                                            <td>挖掘矿物的必备工具，适合硬地作业。</td>
+                                            <td>减少采矿精力消耗 75%</td>
+                                            <td>铁匠铺：木材×5 + 铁锭×3 + 产能 300</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <h3>文档</h3>
+                                <table class="building-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 60px;">图标</th>
+                                            <th style="width: 100px;">名称</th>
+                                            <th>描述</th>
+                                            <th style="width: 200px;">制作场所+原料</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Items/property_deed.png" alt="产权证书" class="building-image" style="max-width: 48px;"></td>
+                                            <td>产权证书</td>
+                                            <td>记录产业产权的证书。</td>
+                                            <td>—</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </section>
 
                             <!-- 建筑系统 -->

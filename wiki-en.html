@@ -809,7 +809,7 @@
                             <li><a href="#overview">Game Overview</a></li>
                             <li><a href="#world-time">World & Time</a></li>
                             <li><a href="#resource">Resources & Gathering</a></li>
-                            <li><a href="#industry">Industry & Production</a></li>
+                            <li><a href="#items">Item System</a></li>
                             <li><a href="#buildings">Building System</a></li>
                             <li><a href="#town">Town System</a></li>
                             <li><a href="#country">Nation System</a></li>
@@ -1148,34 +1148,159 @@
                                 </ul>
                             </section>
 
-                            <!-- Industry & Production -->
-                            <section id="industry" class="section">
-                                <h2>🏭 Industry & Production</h2>
-                                
-                                <h3>Industry Types</h3>
-                                <p>Two types:</p>
-                                
-                                <div class="feature-box">
-                                    <h4>Production</h4>
-                                    <p>Materials → player labor → products</p>
-                                    <p><strong>Example</strong>: Blacksmith uses ore → makes tools</p>
-                                </div>
+                            <!-- Item System -->
+                            <section id="items" class="section">
+                                <h2>📦 Item System</h2>
+                                <p>Items are grouped into four types: materials, consumables, tools, and documents.</p>
 
-                                <div class="feature-box">
-                                    <h4>Service</h4>
-                                    <p>Provide services → earn income</p>
-                                    <p><strong>Example</strong>: Inn, shop</p>
-                                </div>
+                                <h3>Materials</h3>
+                                <table class="building-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 60px;">Icon</th>
+                                            <th style="width: 100px;">Name</th>
+                                            <th>Description</th>
+                                            <th style="width: 200px;">Crafting venue + materials</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Items/wood.png" alt="Wood" class="building-image" style="max-width: 48px;"></td>
+                                            <td>Wood</td>
+                                            <td>Basic building material for houses and tools.</td>
+                                            <td>Gathering (logging)</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Items/stone.png" alt="Stone" class="building-image" style="max-width: 48px;"></td>
+                                            <td>Stone</td>
+                                            <td>Common terrain resource for roads and construction.</td>
+                                            <td>Gathering (mining)</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Items/iron_ore.png" alt="Iron ore" class="building-image" style="max-width: 48px;"></td>
+                                            <td>Iron ore</td>
+                                            <td>Ore rich in iron for smelting or tools.</td>
+                                            <td>Gathering (mining)</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Items/copper_ore.png" alt="Copper ore" class="building-image" style="max-width: 48px;"></td>
+                                            <td>Copper ore</td>
+                                            <td>Ore rich in copper for smelting or tools.</td>
+                                            <td>Gathering (mining)</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Items/copper_ingot.png" alt="Copper ingot" class="building-image" style="max-width: 48px;"></td>
+                                            <td>Copper ingot</td>
+                                            <td>Smelted copper for tools or trade.</td>
+                                            <td>Smeltery: Copper ore×2 + Capacity 100</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Items/iron_ingot.png" alt="Iron ingot" class="building-image" style="max-width: 48px;"></td>
+                                            <td>Iron ingot</td>
+                                            <td>Smelted iron for tools or trade.</td>
+                                            <td>Smeltery: Iron ore×2 + Capacity 100</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
 
-                                <h3>Work</h3>
-                                <ul>
-                                    <li>Players spend stamina to work and get paid immediately</li>
-                                    <li>Output goes to the industry’s storage</li>
-                                    <li>Industry size sets daily work slots; owner can set minimum stamina per work</li>
-                                </ul>
+                                <h3>Consumables</h3>
+                                <table class="building-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 60px;">Icon</th>
+                                            <th style="width: 100px;">Name</th>
+                                            <th>Description</th>
+                                            <th style="width: 140px;">Effect</th>
+                                            <th style="width: 200px;">Crafting venue + materials</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Items/corn.png" alt="Corn" class="building-image" style="max-width: 48px;"></td>
+                                            <td>Corn</td>
+                                            <td>Common crop, edible to restore fullness. Right-click to use.</td>
+                                            <td>Fullness +100</td>
+                                            <td>Corn Farm: Capacity 80</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
 
-                                <h3>Building Limit</h3>
-                                <p>Industry buildings can only be built in chunks within town territory.</p>
+                                <h3>Tools</h3>
+                                <table class="building-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 60px;">Icon</th>
+                                            <th style="width: 100px;">Name</th>
+                                            <th>Description</th>
+                                            <th style="width: 160px;">Effect</th>
+                                            <th style="width: 200px;">Crafting venue + materials</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Items/stone_axe.png" alt="Stone axe" class="building-image" style="max-width: 48px;"></td>
+                                            <td>Stone axe</td>
+                                            <td>Basic logging tool, low efficiency but easy to make.</td>
+                                            <td>-50% logging stamina</td>
+                                            <td>Stonemason: Wood×5 + Stone×3 + Capacity 200</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Items/stone_pickaxe.png" alt="Stone pickaxe" class="building-image" style="max-width: 48px;"></td>
+                                            <td>Stone pickaxe</td>
+                                            <td>Basic mining tool for soft ore.</td>
+                                            <td>-50% mining stamina</td>
+                                            <td>Stonemason: Wood×5 + Stone×3 + Capacity 200</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Items/stone_hammer.png" alt="Stone hammer" class="building-image" style="max-width: 48px;"></td>
+                                            <td>Stone hammer</td>
+                                            <td>Basic building tool for simple construction.</td>
+                                            <td>+50% build efficiency</td>
+                                            <td>Stonemason: Wood×5 + Stone×3 + Capacity 200</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Items/iron_axe.png" alt="Iron axe" class="building-image" style="max-width: 48px;"></td>
+                                            <td>Iron axe</td>
+                                            <td>Efficient logging tool, durable.</td>
+                                            <td>-75% logging stamina</td>
+                                            <td>Blacksmith: Wood×5 + Iron ingot×3 + Capacity 300</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Items/iron_hammer.png" alt="Iron hammer" class="building-image" style="max-width: 48px;"></td>
+                                            <td>Iron hammer</td>
+                                            <td>Basic tool for building.</td>
+                                            <td>+50% build efficiency</td>
+                                            <td>Blacksmith: Wood×5 + Iron ingot×3 + Capacity 300</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Items/iron_pickaxe.png" alt="Iron pickaxe" class="building-image" style="max-width: 48px;"></td>
+                                            <td>Iron pickaxe</td>
+                                            <td>Essential mining tool for hard ore.</td>
+                                            <td>-75% mining stamina</td>
+                                            <td>Blacksmith: Wood×5 + Iron ingot×3 + Capacity 300</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <h3>Documents</h3>
+                                <table class="building-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 60px;">Icon</th>
+                                            <th style="width: 100px;">Name</th>
+                                            <th>Description</th>
+                                            <th style="width: 200px;">Crafting venue + materials</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: center;"><img src="assets/Items/property_deed.png" alt="Property deed" class="building-image" style="max-width: 48px;"></td>
+                                            <td>Property deed</td>
+                                            <td>Certificate of property ownership.</td>
+                                            <td>—</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </section>
 
                             <!-- Building System -->
